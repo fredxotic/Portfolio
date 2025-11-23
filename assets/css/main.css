@@ -17,7 +17,7 @@
   --default-color: #d9d9d9; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #ededed; /* Color for headings, subheadings and title throughout the website */
   --accent-color: #ff4d4f; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
-  --surface-color: #1c1c1c; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+  --surface-color: #1c1c1c; /* The surface color is used as a background of boxed elements within sectioncertification-card, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
 
@@ -1284,13 +1284,13 @@ section,
 }
 
 /*--------------------------------------------------------------
-# Resume Section
+# Education Section
 --------------------------------------------------------------*/
-.resume .section-header {
+.education .section-header {
   margin-bottom: 2.5rem;
 }
 
-.resume .section-header .header-content .section-badge {
+.education .section-header .header-content .section-badge {
   display: inline-block;
   background: linear-gradient(135deg, var(--accent-color), color-mix(in srgb, var(--accent-color), #6c5ce7 20%));
   color: var(--contrast-color);
@@ -1303,7 +1303,7 @@ section,
   margin-bottom: 1rem;
 }
 
-.resume .section-header .header-content h2 {
+.education .section-header .header-content h2 {
   font-size: 2.2rem;
   font-weight: 700;
   color: var(--heading-color);
@@ -1312,20 +1312,20 @@ section,
   letter-spacing: -0.02em;
 }
 
-.resume .section-header .header-content p {
+.education .section-header .header-content p {
   font-size: 1rem;
   line-height: 1.7;
   color: color-mix(in srgb, var(--default-color), transparent 35%);
   margin: 0;
 }
 
-.resume .experience-section .experience-cards {
+.education .certification-section .certification-cards {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-.resume .experience-section .experience-cards .exp-card {
+.education .certification-section .certification-cards .cert-card {
   background: var(--surface-color);
   border-radius: 16px;
   padding: 2rem;
@@ -1335,7 +1335,7 @@ section,
   overflow: hidden;
 }
 
-.resume .experience-section .experience-cards .exp-card::before {
+.education .certification-section .certification-cards .cert-card::before {
   content: "";
   position: absolute;
   top: 0;
@@ -1347,33 +1347,33 @@ section,
   transition: transform 0.3s ease;
 }
 
-.resume .experience-section .experience-cards .exp-card:hover {
+.education .certification-section .certification-cards .cert-card:hover {
   transform: translateY(-5px);
   border-color: color-mix(in srgb, var(--accent-color), transparent 80%);
   box-shadow: 0 15px 45px color-mix(in srgb, var(--default-color), transparent 85%);
 }
 
-.resume .experience-section .experience-cards .exp-card:hover::before {
+.education .certification-section .certification-cards .cert-card:hover::before {
   transform: translateX(0);
 }
 
-.resume .experience-section .experience-cards .exp-card.featured {
+.education .certification-section .certification-cards .cert-card.featured {
   border-color: color-mix(in srgb, var(--accent-color), transparent 70%);
   background: linear-gradient(135deg, var(--surface-color), color-mix(in srgb, var(--accent-color), transparent 95%));
 }
 
-.resume .experience-section .experience-cards .exp-card.featured::before {
+.education .certification-section .certification-cards .cert-card.featured::before {
   background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color), #6c5ce7 20%), var(--accent-color));
 }
 
-.resume .experience-section .experience-cards .exp-card .card-header {
+.education .certification-section .certification-cards .cert-card .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
 }
 
-.resume .experience-section .experience-cards .exp-card .card-header .company-logo {
+.education .certification-section .certification-cards .cert-card .card-header .company-logo {
   width: 50px;
   height: 50px;
   background: linear-gradient(135deg, var(--accent-color), color-mix(in srgb, var(--accent-color), #6c5ce7 20%));
@@ -1383,12 +1383,12 @@ section,
   justify-content: center;
 }
 
-.resume .experience-section .experience-cards .exp-card .card-header .company-logo i {
+.education .certification-section .certification-cards .cert-card .card-header .company-logo i {
   font-size: 1.3rem;
   color: var(--contrast-color);
 }
 
-.resume .experience-section .experience-cards .exp-card .card-header .period-badge {
+.education .certification-section .certification-cards .cert-card .card-header .period-badge {
   background: color-mix(in srgb, var(--accent-color), transparent 85%);
   color: var(--accent-color);
   padding: 0.4rem 1rem;
@@ -1399,7 +1399,7 @@ section,
   letter-spacing: 0.05em;
 }
 
-.resume .experience-section .experience-cards .exp-card .card-body h3 {
+.education .certification-section .certification-cards .cert-card .card-body h3 {
   font-size: 1.4rem;
   font-weight: 600;
   color: var(--heading-color);
@@ -1407,14 +1407,14 @@ section,
   letter-spacing: -0.01em;
 }
 
-.resume .experience-section .experience-cards .exp-card .card-body .company-name {
+.education .certification-section .certification-cards .cert-card .card-body .company-name {
   font-size: 1rem;
   color: color-mix(in srgb, var(--default-color), transparent 25%);
   font-weight: 500;
   margin-bottom: 0.3rem;
 }
 
-.resume .experience-section .experience-cards .exp-card .card-body .duration {
+.education .certification-section .certification-cards .cert-card .card-body .duration {
   display: inline-block;
   font-size: 0.9rem;
   color: var(--accent-color);
@@ -1425,20 +1425,20 @@ section,
   margin-bottom: 1rem;
 }
 
-.resume .experience-section .experience-cards .exp-card .card-body .description {
+.education .certification-section .certification-cards .cert-card .card-body .description {
   font-size: 0.95rem;
   line-height: 1.6;
   color: color-mix(in srgb, var(--default-color), transparent 35%);
   margin-bottom: 1.5rem;
 }
 
-.resume .experience-section .experience-cards .exp-card .card-body .skills-tags {
+.education .certification-section .certification-cards .cert-card .card-body .skills-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.resume .experience-section .experience-cards .exp-card .card-body .skills-tags .skill-tag {
+.education .certification-section .certification-cards .cert-card .card-body .skills-tags .skill-tag {
   background: color-mix(in srgb, var(--accent-color), transparent 92%);
   color: var(--accent-color);
   padding: 0.3rem 0.8rem;
@@ -1448,12 +1448,12 @@ section,
   border: 1px solid color-mix(in srgb, var(--accent-color), transparent 85%);
 }
 
-.resume .education-section .education-timeline .timeline-track {
+.education .education-section .education-timeline .timeline-track {
   position: relative;
   padding-left: 2.5rem;
 }
 
-.resume .education-section .education-timeline .timeline-track::before {
+.education .education-section .education-timeline .timeline-track::before {
   content: "";
   position: absolute;
   left: 10px;
@@ -1463,16 +1463,16 @@ section,
   background: linear-gradient(180deg, var(--accent-color), color-mix(in srgb, var(--accent-color), transparent 50%));
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item {
+.education .education-section .education-timeline .timeline-track .timeline-item {
   position: relative;
   margin-bottom: 3rem;
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item:last-child {
+.education .education-section .education-timeline .timeline-track .timeline-item:last-child {
   margin-bottom: 0;
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-marker {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-marker {
   position: absolute;
   left: -3.5rem;
   top: 0;
@@ -1487,12 +1487,12 @@ section,
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color), transparent 80%);
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-marker i {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-marker i {
   font-size: 1.2rem;
   color: var(--contrast-color);
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content {
   background: var(--surface-color);
   padding: 1.8rem;
   border-radius: 12px;
@@ -1500,20 +1500,20 @@ section,
   transition: all 0.3s ease;
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content:hover {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content:hover {
   transform: translateX(5px);
   border-color: color-mix(in srgb, var(--accent-color), transparent 80%);
   box-shadow: 0 10px 30px color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .education-meta {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content .education-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .education-meta .year-range {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content .education-meta .year-range {
   font-size: 0.9rem;
   color: var(--accent-color);
   font-weight: 600;
@@ -1522,7 +1522,7 @@ section,
   border-radius: 15px;
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .education-meta .degree-level {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content .education-meta .degree-level {
   font-size: 0.8rem;
   color: color-mix(in srgb, var(--default-color), transparent 40%);
   text-transform: uppercase;
@@ -1530,7 +1530,7 @@ section,
   letter-spacing: 0.1em;
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content h4 {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content h4 {
   font-size: 1.3rem;
   font-weight: 600;
   color: var(--heading-color);
@@ -1538,21 +1538,21 @@ section,
   letter-spacing: -0.01em;
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .institution {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content .institution {
   font-size: 1rem;
   color: color-mix(in srgb, var(--default-color), transparent 25%);
   font-weight: 500;
   margin-bottom: 1rem;
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .description {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content .description {
   font-size: 0.95rem;
   line-height: 1.6;
   color: color-mix(in srgb, var(--default-color), transparent 35%);
   margin-bottom: 1.2rem;
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .achievement {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content .achievement {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -1562,18 +1562,18 @@ section,
   border-left: 3px solid var(--accent-color);
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .achievement i {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content .achievement i {
   color: var(--accent-color);
   font-size: 1rem;
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .achievement span {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content .achievement span {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--accent-color);
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .certifications-list .cert-item {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content .certifications-list .cert-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1581,17 +1581,17 @@ section,
   border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 95%);
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .certifications-list .cert-item:last-child {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content .certifications-list .cert-item:last-child {
   border-bottom: none;
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .certifications-list .cert-item .cert-name {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content .certifications-list .cert-item .cert-name {
   font-size: 0.9rem;
   color: var(--heading-color);
   font-weight: 500;
 }
 
-.resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .certifications-list .cert-item .cert-year {
+.education .education-section .education-timeline .timeline-track .timeline-item .timeline-content .certifications-list .cert-item .cert-year {
   font-size: 0.8rem;
   color: var(--accent-color);
   font-weight: 600;
@@ -1601,100 +1601,100 @@ section,
 }
 
 @media (max-width: 992px) {
-  .resume .section-header {
+  .education .section-header {
     margin-bottom: 2rem;
   }
 
-  .resume .section-header .header-content h2 {
+  .education .section-header .header-content h2 {
     font-size: 2rem;
   }
 
-  .resume .experience-section {
+  .education .certification-section {
     margin-bottom: 3rem;
   }
 
-  .resume .education-timeline .timeline-track .timeline-item .timeline-marker {
+  .education .education-timeline .timeline-track .timeline-item .timeline-marker {
     width: 45px;
     height: 45px;
   }
 }
 
 @media (max-width: 768px) {
-  .resume .section-header .header-content {
+  .education .section-header .header-content {
     text-align: center;
   }
 
-  .resume .section-header .header-content h2 {
+  .education .section-header .header-content h2 {
     font-size: 1.8rem;
   }
 
-  .resume .experience-section .experience-cards .exp-card {
+  .education .certification-section .certification-cards .cert-card {
     padding: 1.5rem;
   }
 
-  .resume .experience-section .experience-cards .exp-card .card-header .company-logo {
+  .education .certification-section .certification-cards .cert-card .card-header .company-logo {
     width: 45px;
     height: 45px;
   }
 
-  .resume .experience-section .experience-cards .exp-card .card-header .company-logo i {
+  .education .certification-section .certification-cards .cert-card .card-header .company-logo i {
     font-size: 1.2rem;
   }
 
-  .resume .education-section .education-timeline .timeline-track {
+  .education .education-section .education-timeline .timeline-track {
     padding-left: 2rem;
   }
 
-  .resume .education-section .education-timeline .timeline-track::before {
+  .education .education-section .education-timeline .timeline-track::before {
     left: 20px;
   }
 
-  .resume .education-section .education-timeline .timeline-track .timeline-item .timeline-marker {
+  .education .education-section .education-timeline .timeline-track .timeline-item .timeline-marker {
     left: -2.3rem;
     width: 40px;
     height: 40px;
   }
 
-  .resume .education-section .education-timeline .timeline-track .timeline-item .timeline-marker i {
+  .education .education-section .education-timeline .timeline-track .timeline-item .timeline-marker i {
     font-size: 1rem;
   }
 
-  .resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content {
+  .education .education-section .education-timeline .timeline-track .timeline-item .timeline-content {
     padding: 1.5rem;
   }
 }
 
 @media (max-width: 576px) {
-  .resume .section-header .header-content .section-badge {
+  .education .section-header .header-content .section-badge {
     font-size: 0.8rem;
     padding: 0.4rem 1rem;
   }
 
-  .resume .section-header .header-content h2 {
+  .education .section-header .header-content h2 {
     font-size: 1.6rem;
   }
 
-  .resume .experience-section .experience-cards .exp-card {
+  .education .certification-section .certification-cards .cert-card {
     padding: 1.2rem;
   }
 
-  .resume .experience-section .experience-cards .exp-card .card-header {
+  .education .certification-section .certification-cards .cert-card .card-header {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
   }
 
-  .resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content {
+  .education .education-section .education-timeline .timeline-track .timeline-item .timeline-content {
     padding: 1.2rem;
   }
 
-  .resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .education-meta {
+  .education .education-section .education-timeline .timeline-track .timeline-item .timeline-content .education-meta {
     flex-direction: column;
     gap: 0.5rem;
     align-items: flex-start;
   }
 
-  .resume .education-section .education-timeline .timeline-track .timeline-item .timeline-content .certifications-list .cert-item {
+  .education .education-section .education-timeline .timeline-track .timeline-item .timeline-content .certifications-list .cert-item {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.3rem;
