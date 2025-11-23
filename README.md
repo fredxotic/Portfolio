@@ -2,7 +2,7 @@
 
 > **Bridging Financial Acumen with Technical Expertise**
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=github)](https://fredxotic.github.io/Portfolio/)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=github)](https://portfolio-wheat-eight-38.vercel.app/)
 [![Bootstrap 5](https://img.shields.io/badge/Bootstrap-5.3-purple?style=for-the-badge&logo=bootstrap)](https://getbootstrap.com/)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?style=for-the-badge&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
@@ -12,7 +12,7 @@ This is my official personal portfolio website, designed to showcase my unique p
 
 The site features a modern, responsive design with a dynamic portfolio grid, a detailed career roadmap, and interactive project case studies.
 
-**🔗 Live Site:** [fredxotic.github.io/Portfolio](https://fredxotic.github.io/Portfolio/)
+**🔗 Live Site:** [portfolio.vercel.app](https://portfolio-wheat-eight-38.vercel.app/)
 
 ## 🚀 Key Features
 
