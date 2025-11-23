@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Project Details - Fred Kaloki</title>
+  <meta name="description" content="Project details and case studies">
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body class="portfolio-details-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename"></h1>
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="index.html#portfolio">Portfolio</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div class="page-title light-background">
+      <div class="container">
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li class="current" id="breadcrumb-title">Project Details</li>
+          </ol>
+        </nav>
+        <h1 id="page-title">Project Details</h1>
+      </div>
+    </div>
+
+    <section id="portfolio-details" class="portfolio-details section">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper init-swiper">
+              <script type="application/json" class="swiper-config">
+                {
+                  "loop": true,
+                  "speed": 600,
+                  "autoplay": { "delay": 5000 },
+                  "slidesPerView": "auto",
+                  "pagination": { "el": ".swiper-pagination", "type": "bullets", "clickable": true }
+                }
+              </script>
+              <div class="swiper-wrapper align-items-center" id="swiper-wrapper">
+                </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
+              <h3>Project Information</h3>
+              <ul>
+                <li><strong>Category</strong>: <span id="info-category"></span></li>
+                <li><strong>Project Date</strong>: <span id="info-date"></span></li>
+                <li><strong>Tech Stack</strong>: <span id="info-tech"></span></li>
+                <li><strong>Live URL</strong>: <a href="#" id="info-url" target="_blank">View Project</a></li>
+              </ul>
+            </div>
+            
+            <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
+              <h2 id="desc-title"></h2>
+              <div id="desc-content">
+                </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="footer" class="footer">
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Fred Kaloki</strong> <span>All Rights Reserved</span></p>
+    </div>
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Define the Data for all projects
+      const projects = {
+        pathfinder: {
+          title: "PathFinder",
+          category: "AI & Data Science",
+          date: "2025",
+          tech: "Next.js 14, FastAPI, Groq LLM, Supabase",
+          url: "https://pathfinder-eight-sable.vercel.app",
+          images: ["assets/img/pathfinder.png"],
+          descTitle: "From Analysis Paralysis to Confident Action",
+          descContent: `
+            <p>Every day, professionals face critical decisions that shape their careers and lives. PathFinder transforms this process by combining <strong>AI-powered analysis</strong> with structured decision frameworks.</p>
+            <p>Unlike generic chatbots, PathFinder uses a specialized reasoning engine to weigh your priorities (Career Growth, Work-Life Balance, etc.) against specific options, providing quantitative scoring and risk assessments.</p>
+            <div class="mt-4">
+              <h5>Key Features</h5>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-check2-all text-primary"></i> <strong>Priority-Weighted Scoring:</strong> Mathematical evaluation based on user values.</li>
+                <li><i class="bi bi-check2-all text-primary"></i> <strong>Comparative Analysis:</strong> Side-by-side option evaluation.</li>
+                <li><i class="bi bi-check2-all text-primary"></i> <strong>PDF Reports:</strong> Professional export for stakeholders.</li>
+              </ul>
+            </div>`
+        },
+        reforester: {
+          title: "ReForester",
+          category: "AI & Environment",
+          date: "2024",
+          tech: "React, Node.js, MongoDB, Leaflet, Claude AI",
+          url: "https://reforester.vercel.app",
+          images: ["assets/img/reforester.png"],
+          descTitle: "AI-Powered Reforestation Intelligence",
+          descContent: `
+            <p>ReForester is a comprehensive platform that empowers environmental teams to plan and manage reforestation projects worldwide. By combining real-world environmental data with AI-powered analytics, it provides end-to-end solutions for ecosystem restoration.</p>
+            <div class="mt-4">
+              <h5>Key Capabilities</h5>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-check2-all text-primary"></i> <strong>Interactive Analysis:</strong> Click any global location for instant soil & climate assessment.</li>
+                <li><i class="bi bi-check2-all text-primary"></i> <strong>AI Insights:</strong> Context-aware species recommendations using Ecological reasoning.</li>
+                <li><i class="bi bi-check2-all text-primary"></i> <strong>Growth Projections:</strong> 20-year forecasts for carbon sequestration and biodiversity impact.</li>
+              </ul>
+            </div>`
+        },
+        foodloop: {
+          title: "FoodLoop",
+          category: "Social Impact / Web Dev",
+          date: "2024",
+          tech: "Django, Python, PostgreSQL, Bootstrap 5",
+          url: "https://fredxotic.pythonanywhere.com",
+          images: ["assets/img/foodloop.png"],
+          descTitle: "Connecting Communities to Combat Food Waste",
+          descContent: `
+            <p>FoodLoop is a comprehensive web platform that bridges the gap between food donors and recipients. It tackles both food waste and hunger by creating a community-driven ecosystem where surplus food can be easily shared with those in need.</p>
+            <div class="mt-4">
+              <h5>Key Features</h5>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-check2-all text-primary"></i> <strong>Smart Donation Management:</strong> Create, browse, claim, and track food donations in real-time.</li>
+                <li><i class="bi bi-check2-all text-primary"></i> <strong>Geolocation Services:</strong> Interactive maps with location-based discovery using Leaflet.js.</li>
+                <li><i class="bi bi-check2-all text-primary"></i> <strong>Trust System:</strong> Mutual rating system and role-based dashboards for donors and recipients.</li>
+              </ul>
+            </div>`
+        }
+      };
+
+      // 2. Get ID from URL (e.g., ?id=pathfinder)
+      const params = new URLSearchParams(window.location.search);
+      const projectId = params.get('id');
+      const data = projects[projectId];
+
+      // 3. Populate the page if data exists
+      if (data) {
+        document.getElementById('page-title').innerText = data.title;
+        document.getElementById('breadcrumb-title').innerText = data.title;
+        document.getElementById('info-category').innerText = data.category;
+        document.getElementById('info-date').innerText = data.date;
+        document.getElementById('info-tech').innerText = data.tech;
+        
+        const urlLink = document.getElementById('info-url');
+        urlLink.href = data.url;
+        urlLink.innerText = data.url.replace('https://', '');
+
+        document.getElementById('desc-title').innerText = data.descTitle;
+        document.getElementById('desc-content').innerHTML = data.descContent;
+
+        // Inject Images into Swiper
+        const swiperWrapper = document.getElementById('swiper-wrapper');
+        data.images.forEach(imgSrc => {
+          const slide = document.createElement('div');
+          slide.className = 'swiper-slide';
+          slide.innerHTML = `<img src="${imgSrc}" alt="${data.title}">`;
+          swiperWrapper.appendChild(slide);
+        });
+      } else {
+        // Fallback if no ID provided
+        document.getElementById('desc-content').innerHTML = '<p>Project not found.</p>';
+      }
+    });
+  </script>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  
+  <script src="assets/js/main.js"></script>
+
+</body>
+</html>
