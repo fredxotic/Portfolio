@@ -1,0 +1,543 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>{{ profile.name }} - Portfolio</title>
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="{% url 'home' %}" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename"></h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#resume">Education</a></li>
+          <li><a href="#interests">Interests</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+
+      {% if profile.hero_image %}
+        <img src="{{ profile.hero_image.url }}" alt="{{ profile.name }}" data-aos="fade-in">
+      {% else %}
+        <img src="{% static 'img/me.jpg' %}" alt="{{ profile.name }}" data-aos="fade-in">
+      {% endif %}
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center">
+            <h2>Hi, I'm {{ profile.name }}</h2>
+            <p>I'm a <span class="typed" data-typed-items="{{ profile.title }}"></span><span class="typed-cursor" aria-hidden="true"></span></p>
+            <div class="social-links">
+              {% if profile.github_url %}
+                <a href="{{ profile.github_url }}" target="_blank"><i class="bi bi-github"></i></a>
+              {% endif %}
+              {% if profile.linkedin_url %}
+                <a href="{{ profile.linkedin_url }}" target="_blank"><i class="bi bi-linkedin"></i></a>
+              {% endif %}
+              {% if profile.instagram_url %}
+                <a href="{{ profile.instagram_url }}" target="_blank"><i class="bi bi-instagram"></i></a>
+              {% endif %}
+              <a href="mailto:{{ profile.email }}"><i class="bi bi-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <span class="subtitle">About Me</span>
+        <h2>About Me</h2>
+        <p>Ambitious learner & aspiring professional at the intersection of Business, Accounting, and Technology.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-5">
+          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="150">
+            <div class="profile-card">
+              <div class="profile-header">
+                <div class="profile-avatar">
+                  {% if profile.profile_image %}
+                    <img src="{{ profile.profile_image.url }}" class="img-fluid" alt="{{ profile.name }}" style="object-fit: cover; aspect-ratio: 1/1;">
+                  {% else %}
+                    <img src="{% static 'img/me.jpg' %}" class="img-fluid" alt="{{ profile.name }}" style="object-fit: cover; aspect-ratio: 1/1;">
+                  {% endif %}
+                </div>
+                <h3>{{ profile.name }}</h3>
+                <span class="role">Finance & Tech Specialist</span>
+              </div>
+
+              <div class="profile-stats">
+                <div class="stat-item">
+                  <h4>{{ projects.count }}</h4>
+                  <p>Projects</p>
+                </div>
+                <div class="stat-item">
+                  <h4>{{ certifications.count }}</h4>
+                  <p>Certifications</p>
+                </div>
+                <div class="stat-item">
+                  <h4>1</h4>
+                  <p>Year of Coding</p>
+                </div>
+              </div>
+
+              <div class="profile-actions">
+                {% if profile.cv_file %}
+                  <a href="{{ profile.cv_file.url }}" class="btn-primary" target="_blank"><i class="bi bi-download"></i> Download CV</a>
+                {% else %}
+                  <a href="{% static 'docs/mycv.pdf' %}" class="btn-primary" target="_blank"><i class="bi bi-download"></i> Download CV</a>
+                {% endif %}
+                <a href="#contact" class="btn-secondary"><i class="bi bi-envelope"></i> Contact</a>
+              </div>
+
+              <div class="social-connect">
+                {% if profile.linkedin_url %}
+                  <a href="{{ profile.linkedin_url }}" target="_blank"><i class="bi bi-linkedin"></i></a>
+                {% endif %}
+                {% if profile.github_url %}
+                  <a href="{{ profile.github_url }}" target="_blank"><i class="bi bi-github"></i></a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-8" data-aos="fade-left" data-aos-delay="200">
+            <div class="content-wrapper">
+              <div class="bio-section">
+                <div class="section-tag">Biography</div>
+                <h2>Bridging Financial Knowledge with Digital Skills</h2>
+                {{ profile.bio|linebreaks }}
+              </div>
+
+              <div class="skills-showcase" data-aos="fade-up" data-aos-delay="250">
+                <div class="section-tag">Core Skills</div>
+                <h3>Technical & Professional Proficiency</h3>
+
+                <div class="skills-list skills-animation">
+                  {% for skill in skills %}
+                  <div class="skill-item">
+                    <div class="skill-info">
+                      <span class="skill-name">{{ skill.name }}</span>
+                      <span class="skill-percent">{{ skill.percentage }}%</span>
+                    </div>
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="{{ skill.percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ skill.percentage }}%"></div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /About Section -->
+
+    <!-- Education and certification Section -->
+    <section id="resume" class="resume section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <span class="subtitle">Education & Training</span>
+        <h2>Education & Training</h2>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-5">
+          <div class="col-lg-6">
+            <div class="experience-section">
+              <div class="section-header" data-aos="fade-right" data-aos-delay="200">
+                <div class="header-content">
+                  <span class="section-badge">Certifications</span>
+                  <h2>Professional Development</h2>
+                </div>
+              </div>
+
+              <div class="experience-cards">
+                {% for cert in certifications %}
+                <div class="exp-card {% if cert.is_current %}featured{% endif %}" data-aos="zoom-in" data-aos-delay="300">
+                  <div class="card-header">
+                    <div class="company-logo"><i class="bi bi-award"></i></div>
+                    {% if cert.is_current %}
+                      <div class="period-badge">Current</div>
+                    {% endif %}
+                  </div>
+                  <div class="card-body">
+                    <h3>{{ cert.title }}</h3>
+                    <p class="company-name">{{ cert.issuer }}</p>
+                    <p class="description">{{ cert.description }}</p>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="education-section">
+              <div class="section-header" data-aos="fade-left" data-aos-delay="200">
+                <div class="header-content">
+                  <span class="section-badge">Education</span>
+                  <h2>Academic Background</h2>
+                </div>
+              </div>
+
+              <div class="education-timeline" data-aos="fade-left" data-aos-delay="300">
+                <div class="timeline-track">
+                  {% for edu in education %}
+                  <div class="timeline-item">
+                    <div class="timeline-marker"><i class="bi bi-mortarboard-fill"></i></div>
+                    <div class="timeline-content">
+                      <div class="education-meta">
+                        <span class="year-range">{{ edu.start_year }} - {% if edu.is_current %}Present{% else %}{{ edu.end_year }}{% endif %}</span>
+                        <span class="degree-level">{{ edu.degree_level }}</span>
+                      </div>
+                      <h4>{{ edu.degree }}</h4>
+                      <p class="institution">{{ edu.institution }}</p>
+                      <p class="description">{{ edu.description }}</p>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /Resume Section -->
+
+    <!-- Interest Section -->
+    <section id="interests" class="interests section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <span class="subtitle">Interests</span>
+        <h2>Interests & Career Roadmap</h2>
+        <p>Exploring the intersection of Finance, Technology, and Innovation.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <h3 class="mb-4" style="font-size: 1.5rem; color: var(--heading-color);">Areas of Interest</h3>
+        <div class="row gy-4 mb-5">
+          {% for interest in interests %}
+          <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="{{ forloop.counter|add:1|stringformat:'d'|add:'00' }}">
+            <div class="interest-item">
+              <div class="icon-wrapper">
+                <i class="{{ interest.icon }}"></i>
+              </div>
+              <h4>{{ interest.title }}</h4>
+              <p>{{ interest.description }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <h3 class="mb-4" style="font-size: 1.5rem; color: var(--heading-color);">Career Roadmap</h3>
+        <div class="row gy-4">
+          {% for goal in career_goals %}
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:1|stringformat:'d'|add:'00' }}">
+            <div class="interest-item position-relative h-100">
+              <div class="icon-wrapper" style="background: #eef2ff; color: #4154f1;">
+                <span style="font-weight:800; font-size:1.2rem;">{{ goal.get_timeframe_display }}</span>
+              </div>
+              <h4>{{ goal.title }}</h4>
+              <ul class="text-start text-secondary" style="list-style: none; padding-left: 0;">
+                {% for item in goal.get_goals_list %}
+                  <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> {{ item }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section><!-- /Interests Section -->
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <span class="subtitle">Portfolio</span>
+        <h2>Featured Projects</h2>
+        <p>A selection of projects demonstrating my journey in Full Stack Development, Data Science, and Solving Real-world Problems.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+          
+          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="200">
+            <li data-filter="*" class="filter-active">All Work</li>
+            <li data-filter=".filter-ai">AI & Data Science</li>
+            <li data-filter=".filter-web">Web Development</li>
+            <li data-filter=".filter-mobile">Mobile</li>
+          </ul>
+
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="300">
+            {% for project in projects %}
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-{{ project.category|lower }}">
+              <div class="portfolio-card">
+                <div class="portfolio-image-container">
+                  {% if project.thumbnail %}
+                    <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="img-fluid" loading="lazy">
+                  {% else %}
+                    <img src="{% static 'img/portfolio/default-project.jpg' %}" alt="{{ project.title }}" class="img-fluid" loading="lazy">
+                  {% endif %}
+                  <div class="portfolio-overlay">
+                    <div class="portfolio-info">
+                      <span class="project-category">{{ project.get_category_display }}</span>
+                      <h4>{{ project.title }}</h4>
+                    </div>
+                    <div class="portfolio-actions">
+                      <a href="{% url 'portfolio-details' project.slug %}" class="portfolio-details" title="More Details">
+                        <i class="bi bi-arrow-right"></i>
+                      </a>
+                      {% if project.live_url %}
+                      <a href="{{ project.live_url }}" target="_blank" class="portfolio-details">
+                        <i class="bi bi-link-45deg"></i>
+                      </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="portfolio-meta">
+                  <div class="project-tags">
+                    {% for tag in project.tags.all|slice:":3" %}
+                      <span class="tag">{{ tag.name }}</span>
+                    {% endfor %}
+                  </div>
+                  <div class="project-year">{{ project.project_date }}</div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section><!-- /Portfolio Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <span class="subtitle">Contact</span>
+        <h2>Get In Touch</h2>
+        <p>I'm always open to new opportunities, collaborations, or just a chat about technology and finance.</p>
+      </div>
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4">
+            <div class="info-item">
+              <div class="icon-wrapper">
+                <i class="bi bi-geo-alt"></i>
+              </div>
+              <div>
+                <h3>Location</h3>
+                <p>{{ profile.location }}</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="icon-wrapper">
+                <i class="bi bi-telephone"></i>
+              </div>
+              <div>
+                <h3>Call Me</h3>
+                <p>{{ profile.phone }}</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="icon-wrapper">
+                <i class="bi bi-envelope"></i>
+              </div>
+              <div>
+                <h3>Email Me</h3>
+                <p>{{ profile.email }}</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-lg-8">
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+              {% endfor %}
+            {% endif %}
+
+            <form action="{% url 'home' %}" method="post" class="php-email-form">
+              {% csrf_token %}
+              <div class="row gy-4">
+
+                <div class="col-md-6">
+                  {{ form.name }}
+                  {{ form.name.errors }}
+                </div>
+
+                <div class="col-md-6">
+                  {{ form.email }}
+                  {{ form.email.errors }}
+                </div>
+
+                <div class="col-md-12">
+                  {{ form.subject }}
+                  {{ form.subject.errors }}
+                </div>
+
+                <div class="col-md-12">
+                  {{ form.message }}
+                  {{ form.message.errors }}
+                </div>
+
+                <div class="col-md-12 text-center">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                  <div class="sent-message">Your message has been sent. Thank you!</div>
+                  
+                  <button type="submit">Send Message</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section><!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="{% url 'home' %}" class="logo d-flex align-items-center">
+            <span class="sitename">{{ profile.name }}</span>
+          </a>
+          <p>Combining financial acumen with technical expertise to build the future of business intelligence.</p>
+          <div class="social-links d-flex mt-4">
+            {% if profile.github_url %}
+              <a href="{{ profile.github_url }}" target="_blank"><i class="bi bi-github"></i></a>
+            {% endif %}
+            {% if profile.linkedin_url %}
+              <a href="{{ profile.linkedin_url }}" target="_blank"><i class="bi bi-linkedin"></i></a>
+            {% endif %}
+            {% if profile.instagram_url %}
+              <a href="{{ profile.instagram_url }}" target="_blank"><i class="bi bi-instagram"></i></a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Core Competencies</h4>
+          <ul>
+            {% for skill in skills|slice:":4" %}
+              <li><a href="#about">{{ skill.name }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Info</h4>
+          <p>{{ profile.location }}</p>
+          <p class="mt-4"><strong>Phone:</strong> <span>{{ profile.phone }}</span></p>
+          <p><strong>Email:</strong> <span>{{ profile.email }}</span></p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">{{ profile.name }}</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">Designed with ❤️ by fredxotic</div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/email-form/validate.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/typed.js/typed.umd.js' %}"></script>
+  <script src="{% static 'vendor/waypoints/noframework.waypoints.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>

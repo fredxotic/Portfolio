@@ -1,0 +1,194 @@
+{% load static %}
+{% load portfolio_filters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>{{ project.title }} - Project Details</title>
+  <meta name="description" content="{{ project.short_description }}">
+
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+</head>
+
+<body class="portfolio-details-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+      <a href="{% url 'home' %}" class="logo d-flex align-items-center">
+        <h1 class="sitename"></h1>
+      </a>
+      
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="{% url 'home' %}#hero">Home</a></li>
+          <li><a href="{% url 'home' %}#about">About</a></li>
+          <li><a href="{% url 'home' %}#portfolio" class="active">Portfolio</a></li>
+          <li><a href="{% url 'home' %}#contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Project Header -->
+    <section class="project-header-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12" data-aos="fade-up">
+            <h1 class="project-title">{{ project.title }}</h1>
+            <p class="project-description">{{ project.short_description }}</p>
+            
+            <div class="project-quick-info">
+              <div class="info-badge">
+                <i class="bi bi-calendar-event"></i>
+                <span>{{ project.project_date }}</span>
+              </div>
+              <div class="info-badge">
+                <i class="bi bi-folder"></i>
+                <span>{{ project.get_category_display }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Showcase -->
+    <section class="project-showcase">
+      <div class="container">
+        <div class="project-image-wrapper" data-aos="zoom-in">
+          {% if project.thumbnail %}
+            <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="img-fluid project-main-image">
+          {% else %}
+            <div class="placeholder-image">
+              <i class="bi bi-image"></i>
+              <p>Project Image</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Content -->
+    <section class="project-details-content">
+      <div class="container">
+        <div class="row gy-5">
+          
+          <!-- Main Content -->
+          <div class="col-lg-8">
+            
+            <!-- Overview -->
+            <div class="content-block" data-aos="fade-up">
+              <h2 class="block-title">Project Overview</h2>
+              <div class="block-content">
+                {{ project.description|linebreaks }}
+              </div>
+            </div>
+
+            <!-- Key Features -->
+            {% if project.detailed_content %}
+            <div class="content-block" data-aos="fade-up" data-aos-delay="100">
+              <h2 class="block-title">Key Features & Implementation</h2>
+              <div class="block-content">
+                {{ project.detailed_content|linebreaks }}
+              </div>
+            </div>
+            {% endif %}
+
+          </div>
+
+          <!-- Sidebar -->
+          <div class="col-lg-4">
+
+            <!-- Project Links -->
+            {% if project.live_url or project.github_url %}
+            <div class="sidebar-card links-card" data-aos="fade-up">
+              <h3 class="card-title">Project Links</h3>
+              <div class="project-links">
+                {% if project.live_url %}
+                <a href="{{ project.live_url }}" target="_blank" class="project-link live-link">
+                  <i class="bi bi-box-arrow-up-right"></i>
+                  <span>View Live Project</span>
+                </a>
+                {% endif %}
+                
+                {% if project.github_url %}
+                <a href="{{ project.github_url }}" target="_blank" class="project-link github-link">
+                  <i class="bi bi-github"></i>
+                  <span>View Source Code</span>
+                </a>
+                {% endif %}
+              </div>
+            </div>
+            {% endif %}
+
+            <!-- Technologies Used -->
+            {% if project.tags.all %}
+            <div class="sidebar-card tech-card" data-aos="fade-up" data-aos-delay="100">
+              <h3 class="card-title">Technologies Used</h3>
+              <div class="tech-tags-wrapper">
+                {% for tag in project.tags.all %}
+                  <span class="tech-tag">
+                    <i class="bi bi-check-circle-fill"></i>
+                    {{ tag.name }}
+                  </span>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Back to Portfolio -->
+    <section class="back-section">
+      <div class="container">
+        <div class="text-center" data-aos="fade-up">
+          <a href="{% url 'home' %}#portfolio" class="back-button">
+            <i class="bi bi-arrow-left-circle"></i>
+            <span>Back to Portfolio</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="copyright text-center">
+        <p>© <strong>Fred Kaloki</strong> - All Rights Reserved</p>
+        <div class="credits">Designed with ❤️ by fredxotic</div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>
