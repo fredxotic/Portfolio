@@ -45,7 +45,12 @@ body {
   background-color: var(--bg);
   color: var(--text);
   line-height: 1.7;
+}
+
+/* Prevents AOS horizontal translations from widening the viewport on mobile */
+.fk-page-wrapper {
   overflow-x: hidden;
+  width: 100%;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -1330,6 +1335,22 @@ ol.fk-rich-list { list-style: decimal; }
 /* ============================================================
    AOS MOBILE OVERRIDE
    ============================================================ */
+@media (max-width: 991px) {
+  /* Convert horizontal AOS animations to vertical on mobile/tablet —
+     fade-left/fade-right use translateX(±100px) which extends the
+     document beyond the viewport edge, causing horizontal scroll. */
+  html:not(.no-js) [data-aos="fade-left"],
+  html:not(.no-js) [data-aos="fade-right"] {
+    -webkit-transform: translate3d(0, 30px, 0) !important;
+    transform: translate3d(0, 30px, 0) !important;
+  }
+  html:not(.no-js) [data-aos="fade-left"].aos-animate,
+  html:not(.no-js) [data-aos="fade-right"].aos-animate {
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+}
+
 @media (max-width: 767px) {
   [data-aos-delay] { transition-delay: 0 !important; }
   .fk-section { padding: 70px 0; }
