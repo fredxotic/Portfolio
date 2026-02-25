@@ -15,6 +15,9 @@ from .forms import ContactForm
 logger = logging.getLogger(__name__)
 
 def home(request):
+    # Guard: if no profile exists render a minimal page
+    profile = Profile.objects.first()
+
     # 1. Handle Form Submission
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -41,7 +44,6 @@ def home(request):
         form = ContactForm()
 
     # 2. Get Data
-    profile = Profile.objects.first()
     skills = Skill.objects.all()
     education = Education.objects.all()
     certifications = Certification.objects.all()
@@ -64,7 +66,19 @@ def home(request):
 
 def portfolio_details(request, slug):
     project = get_object_or_404(Project, slug=slug)
-    return render(request, 'portfolio-details.html', {'project': project})
+    profile = Profile.objects.first()
+    related_projects = (
+        Project.objects
+        .exclude(slug=slug)
+        .filter(category=project.category)
+        .prefetch_related('tags')[:3]
+    )
+    context = {
+        'project': project,
+        'profile': profile,
+        'related_projects': related_projects,
+    }
+    return render(request, 'portfolio-details.html', context)
 
 def send_notification_emails(instance):
     """Helper function to handle email sending logic"""

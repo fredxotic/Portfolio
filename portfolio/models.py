@@ -44,6 +44,13 @@ class Profile(models.Model):
     def __str__(self):
         return self.name
 
+    def get_typed_titles(self):
+        """Return comma-separated title roles for typed.js.
+        If title already contains commas it is used as-is.
+        Otherwise the full title string is returned for single-item typing.
+        """
+        return self.title
+
 class Skill(models.Model):
     name = models.CharField(max_length=100)
     percentage = models.IntegerField(
@@ -62,7 +69,7 @@ class Education(models.Model):
     institution = models.CharField(max_length=200)
     description = models.TextField()
     start_year = models.IntegerField()
-    end_year = models.IntegerField(null=True, blank=True)
+    end_year = models.IntegerField(null=True, blank=True)  # blank=True required for form validation
     is_current = models.BooleanField(default=False)
     degree_level = models.CharField(max_length=50, choices=[
         ('High School', 'High School'),
@@ -159,6 +166,9 @@ class ProjectImage(models.Model):
     
     class Meta:
         ordering = ['order']
+
+    def __str__(self):
+        return f"{self.project.title} — Image {self.order}"
 
 class ProjectTag(models.Model):
     project = models.ForeignKey(Project, related_name='tags', on_delete=models.CASCADE)

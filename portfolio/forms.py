@@ -5,10 +5,24 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = ContactMessage
         fields = ['name', 'email', 'subject', 'message']
-        # Add Bootstrap classes directly to the form widgets
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Name'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your Email'}),
-            'subject': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Subject'}),
-            'message': forms.Textarea(attrs={'class': 'form-control', 'rows': 6, 'placeholder': 'Message'}),
+            'name':    forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'e.g. Jane Smith',
+                'autocomplete': 'name',
+            }),
+            'email':   forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'you@example.com',
+                'autocomplete': 'email',
+            }),
+            'subject': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'What is this about?',
+            }),
+            'message': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 6,
+                'placeholder': 'Your message…',
+            }),
         }

@@ -1,296 +1,226 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>{{ profile.name }} - Portfolio</title>
+{% block title %}{% if profile %}{{ profile.name }} — Portfolio{% else %}Portfolio{% endif %}{% endblock %}
 
-  <!-- Favicons -->
-  <link href="{% static 'img/favicon.png' %}" rel="icon">
-  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+{% block meta %}
+  <meta name="description" content="{% if profile %}{{ profile.bio|truncatewords:30 }}{% else %}Personal portfolio{% endif %}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{% if profile %}{{ profile.name }} — Portfolio{% else %}Portfolio{% endif %}">
+  <meta property="og:description" content="{% if profile %}{{ profile.bio|truncatewords:25 }}{% endif %}">
+  {% if profile and profile.profile_image %}<meta property="og:image" content="{{ profile.profile_image.url }}">{% endif %}
+{% endblock %}
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+{% block preloader %}
+  <div id="preloader" class="fk-preloader"><div class="fk-preloader__ring"></div></div>
+{% endblock %}
 
-  <!-- Vendor CSS Files -->
-  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
-  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+{% block nav_items %}
+          <li><a href="#hero" class="fk-nav-link active">Home</a></li>
+          <li><a href="#about" class="fk-nav-link">About</a></li>
+          <li><a href="#resume" class="fk-nav-link">Education</a></li>
+          <li><a href="#interests" class="fk-nav-link">Interests</a></li>
+          <li><a href="#portfolio" class="fk-nav-link">Projects</a></li>
+          <li><a href="#contact" class="fk-nav-link">Contact</a></li>
+{% endblock %}
 
-  <!-- Main CSS File -->
-  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+{% block content %}
 
-</head>
-
-<body class="index-page">
-
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center">
-
-      <a href="{% url 'home' %}" class="logo d-flex align-items-center me-auto">
-        <h1 class="sitename"></h1>
+    <!-- HERO -->
+    <section id="hero" class="fk-hero">
+      <div class="fk-hero__bg">
+        {% if profile and profile.hero_image %}
+          <img src="{{ profile.hero_image.url }}" alt="Background" class="fk-hero__bg-img">
+        {% else %}
+          <img src="{% static 'img/me.jpg' %}" alt="Background" class="fk-hero__bg-img">
+        {% endif %}
+        <div class="fk-hero__overlay"></div>
+        <div class="fk-hero__grid"></div>
+      </div>
+      <div class="fk-hero__content" data-aos="fade-up">
+        <p class="fk-hero__greeting">Hello, world! 👋 I'm</p>
+        <h1 class="fk-hero__name">{% if profile %}{{ profile.name }}{% else %}Fred Kaloki{% endif %}</h1>
+        <div class="fk-hero__role-wrapper">
+          <span class="fk-hero__role-prefix">I'm a&nbsp;</span>
+          <span id="typedEl" data-typed-items="{% if profile %}{{ profile.get_typed_titles }}{% else %}Developer{% endif %}"></span>
+          <span class="fk-typed-cursor">|</span>
+        </div>
+        <div class="fk-hero__actions" data-aos="fade-up" data-aos-delay="150">
+          <a href="#portfolio" class="fk-btn fk-btn--primary">View My Work <i class="bi bi-arrow-right-short"></i></a>
+          <a href="#contact" class="fk-btn fk-btn--ghost">Get In Touch</a>
+        </div>
+        <div class="fk-hero__socials" data-aos="fade-up" data-aos-delay="250">
+          {% include "includes/social_links.html" %}
+          {% if profile %}<a href="mailto:{{ profile.email }}" aria-label="Email"><i class="bi bi-envelope-fill"></i></a>{% endif %}
+        </div>
+      </div>
+      <a href="#about" class="fk-hero__scroll" aria-label="Scroll down">
+        <span class="fk-hero__scroll-dot"></span>
       </a>
+    </section>
 
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#resume">Education</a></li>
-          <li><a href="#interests">Interests</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
-    </div>
-  </header>
-
-  <main class="main">
-
-    <!-- Hero Section -->
-    <section id="hero" class="hero section dark-background">
-
-      {% if profile.hero_image %}
-        <img src="{{ profile.hero_image.url }}" alt="{{ profile.name }}" data-aos="fade-in">
-      {% else %}
-        <img src="{% static 'img/me.jpg' %}" alt="{{ profile.name }}" data-aos="fade-in">
-      {% endif %}
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row justify-content-center">
-          <div class="col-lg-8 text-center">
-            <h2>Hi, I'm {{ profile.name }}</h2>
-            <p>I'm a <span class="typed" data-typed-items="{{ profile.title }}"></span><span class="typed-cursor" aria-hidden="true"></span></p>
-            <div class="social-links">
-              {% if profile.github_url %}
-                <a href="{{ profile.github_url }}" target="_blank"><i class="bi bi-github"></i></a>
-              {% endif %}
-              {% if profile.linkedin_url %}
-                <a href="{{ profile.linkedin_url }}" target="_blank"><i class="bi bi-linkedin"></i></a>
-              {% endif %}
-              {% if profile.instagram_url %}
-                <a href="{{ profile.instagram_url }}" target="_blank"><i class="bi bi-instagram"></i></a>
-              {% endif %}
-              <a href="mailto:{{ profile.email }}"><i class="bi bi-envelope"></i></a>
-            </div>
-          </div>
+    <!-- ABOUT -->
+    <section id="about" class="fk-section">
+      <div class="container">
+        <div class="fk-section-header" data-aos="fade-up">
+          <span class="fk-section-header__tag">About Me</span>
+          <h2 class="fk-section-header__title">The Person Behind the Code</h2>
         </div>
-      </div>
-
-    </section><!-- /Hero Section -->
-
-    <!-- About Section -->
-    <section id="about" class="about section">
-
-      <div class="container section-title" data-aos="fade-up">
-        <span class="subtitle">About Me</span>
-        <h2>About Me</h2>
-        <p>Ambitious learner & aspiring professional at the intersection of Business, Accounting, and Technology.</p>
-      </div>
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-5">
-          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="150">
-            <div class="profile-card">
-              <div class="profile-header">
-                <div class="profile-avatar">
-                  {% if profile.profile_image %}
-                    <img src="{{ profile.profile_image.url }}" class="img-fluid" alt="{{ profile.name }}" style="object-fit: cover; aspect-ratio: 1/1;">
-                  {% else %}
-                    <img src="{% static 'img/me.jpg' %}" class="img-fluid" alt="{{ profile.name }}" style="object-fit: cover; aspect-ratio: 1/1;">
-                  {% endif %}
-                </div>
-                <h3>{{ profile.name }}</h3>
-                <span class="role">Finance & Tech Specialist</span>
-              </div>
-
-              <div class="profile-stats">
-                <div class="stat-item">
-                  <h4>{{ projects.count }}</h4>
-                  <p>Projects</p>
-                </div>
-                <div class="stat-item">
-                  <h4>{{ certifications.count }}</h4>
-                  <p>Certifications</p>
-                </div>
-                <div class="stat-item">
-                  <h4>1</h4>
-                  <p>Year of Coding</p>
-                </div>
-              </div>
-
-              <div class="profile-actions">
-                {% if profile.cv_file %}
-                  <a href="{{ profile.cv_file.url }}" class="btn-primary" target="_blank"><i class="bi bi-download"></i> Download CV</a>
+        <div class="row gy-5 align-items-start">
+          <div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
+            <div class="fk-profile-card">
+              <div class="fk-profile-card__avatar-ring">
+                {% if profile and profile.profile_image %}
+                  <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" class="fk-profile-card__avatar">
                 {% else %}
-                  <a href="{% static 'docs/mycv.pdf' %}" class="btn-primary" target="_blank"><i class="bi bi-download"></i> Download CV</a>
+                  <img src="{% static 'img/me.jpg' %}" alt="Profile" class="fk-profile-card__avatar">
                 {% endif %}
-                <a href="#contact" class="btn-secondary"><i class="bi bi-envelope"></i> Contact</a>
+                <span class="fk-profile-card__status" title="Open to opportunities"></span>
               </div>
-
-              <div class="social-connect">
-                {% if profile.linkedin_url %}
-                  <a href="{{ profile.linkedin_url }}" target="_blank"><i class="bi bi-linkedin"></i></a>
+              {% if profile %}
+              <h3 class="fk-profile-card__name">{{ profile.name }}</h3>
+              <p class="fk-profile-card__title">{{ profile.title|truncatewords:6 }}</p>
+              {% endif %}
+              <div class="fk-profile-card__stats">
+                <div class="fk-stat"><strong>{{ projects.count }}</strong><span>Projects</span></div>
+                <div class="fk-stat"><strong>{{ certifications.count }}</strong><span>Certifications</span></div>
+                <div class="fk-stat"><strong>{{ skills.count }}</strong><span>Skills</span></div>
+              </div>
+              <div class="fk-profile-card__actions">
+                {% if profile and profile.cv_file %}
+                  <a href="{{ profile.cv_file.url }}" class="fk-btn fk-btn--primary w-100" target="_blank" download><i class="bi bi-cloud-download me-2"></i>Download CV</a>
+                {% else %}
+                  <a href="{% static 'docs/mycv.pdf' %}" class="fk-btn fk-btn--primary w-100" target="_blank"><i class="bi bi-cloud-download me-2"></i>Download CV</a>
                 {% endif %}
-                {% if profile.github_url %}
-                  <a href="{{ profile.github_url }}" target="_blank"><i class="bi bi-github"></i></a>
+                <a href="#contact" class="fk-btn fk-btn--outline w-100 mt-2"><i class="bi bi-send me-2"></i>Contact Me</a>
+              </div>
+              <div class="fk-profile-card__info">
+                {% if profile %}
+                <div class="fk-info-row"><i class="bi bi-geo-alt-fill"></i><span>{{ profile.location }}</span></div>
+                <div class="fk-info-row"><i class="bi bi-envelope-fill"></i><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></div>
+                <div class="fk-info-row"><i class="bi bi-telephone-fill"></i><a href="tel:{{ profile.phone }}">{{ profile.phone }}</a></div>
                 {% endif %}
               </div>
             </div>
           </div>
 
-          <div class="col-lg-8" data-aos="fade-left" data-aos-delay="200">
-            <div class="content-wrapper">
-              <div class="bio-section">
-                <div class="section-tag">Biography</div>
-                <h2>Bridging Financial Knowledge with Digital Skills</h2>
-                {{ profile.bio|linebreaks }}
-              </div>
-
-              <div class="skills-showcase" data-aos="fade-up" data-aos-delay="250">
-                <div class="section-tag">Core Skills</div>
-                <h3>Technical & Professional Proficiency</h3>
-
-                <div class="skills-list skills-animation">
-                  {% for skill in skills %}
-                  <div class="skill-item">
-                    <div class="skill-info">
-                      <span class="skill-name">{{ skill.name }}</span>
-                      <span class="skill-percent">{{ skill.percentage }}%</span>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="{{ skill.percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ skill.percentage }}%"></div>
-                    </div>
-                  </div>
-                  {% endfor %}
-                </div>
+          <div class="col-lg-8" data-aos="fade-left" data-aos-delay="150">
+            <div class="fk-bio mb-5">
+              <span class="fk-label">Biography</span>
+              <h3 class="fk-bio__heading">Bridging Financial Knowledge<br>with Digital Innovation</h3>
+              <div class="fk-bio__text">
+                {% if profile %}{{ profile.bio|linebreaks }}{% endif %}
               </div>
             </div>
-          </div>
-        </div>
-
-      </div>
-
-    </section><!-- /About Section -->
-
-    <!-- Education and certification Section -->
-    <section id="resume" class="resume section">
-
-      <div class="container section-title" data-aos="fade-up">
-        <span class="subtitle">Education & Training</span>
-        <h2>Education & Training</h2>
-      </div>
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-5">
-          <div class="col-lg-6">
-            <div class="experience-section">
-              <div class="section-header" data-aos="fade-right" data-aos-delay="200">
-                <div class="header-content">
-                  <span class="section-badge">Certifications</span>
-                  <h2>Professional Development</h2>
-                </div>
-              </div>
-
-              <div class="experience-cards">
-                {% for cert in certifications %}
-                <div class="exp-card {% if cert.is_current %}featured{% endif %}" data-aos="zoom-in" data-aos-delay="300">
-                  <div class="card-header">
-                    <div class="company-logo"><i class="bi bi-award"></i></div>
-                    {% if cert.is_current %}
-                      <div class="period-badge">Current</div>
-                    {% endif %}
+            <div class="fk-skills">
+              <span class="fk-label">Core Skills</span>
+              <h4 class="fk-skills__heading">Technical &amp; Professional Proficiency</h4>
+              <div class="fk-skills__list skills-animation">
+                {% for skill in skills %}
+                <div class="fk-skill-row">
+                  <div class="fk-skill-row__header">
+                    <span class="fk-skill-row__name">{{ skill.name }}</span>
+                    <span class="fk-skill-row__pct">{{ skill.percentage }}%</span>
                   </div>
-                  <div class="card-body">
-                    <h3>{{ cert.title }}</h3>
-                    <p class="company-name">{{ cert.issuer }}</p>
-                    <p class="description">{{ cert.description }}</p>
+                  <div class="fk-progress">
+                    <div class="fk-progress__bar"
+                         role="progressbar"
+                         aria-valuenow="{{ skill.percentage }}"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         data-width="{{ skill.percentage }}%"
+                         style="width:0%"></div>
                   </div>
                 </div>
                 {% endfor %}
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="col-lg-6">
-            <div class="education-section">
-              <div class="section-header" data-aos="fade-left" data-aos-delay="200">
-                <div class="header-content">
-                  <span class="section-badge">Education</span>
-                  <h2>Academic Background</h2>
-                </div>
-              </div>
-
-              <div class="education-timeline" data-aos="fade-left" data-aos-delay="300">
-                <div class="timeline-track">
-                  {% for edu in education %}
-                  <div class="timeline-item">
-                    <div class="timeline-marker"><i class="bi bi-mortarboard-fill"></i></div>
-                    <div class="timeline-content">
-                      <div class="education-meta">
-                        <span class="year-range">{{ edu.start_year }} - {% if edu.is_current %}Present{% else %}{{ edu.end_year }}{% endif %}</span>
-                        <span class="degree-level">{{ edu.degree_level }}</span>
-                      </div>
-                      <h4>{{ edu.degree }}</h4>
-                      <p class="institution">{{ edu.institution }}</p>
-                      <p class="description">{{ edu.description }}</p>
-                    </div>
+    <!-- EDUCATION & CERTS -->
+    <section id="resume" class="fk-section fk-section--alt">
+      <div class="container">
+        <div class="fk-section-header" data-aos="fade-up">
+          <span class="fk-section-header__tag">Background</span>
+          <h2 class="fk-section-header__title">Education &amp; Credentials</h2>
+        </div>
+        <div class="row gy-5">
+          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
+            <div class="fk-block-label"><i class="bi bi-mortarboard-fill me-2"></i>Academic Background</div>
+            <div class="fk-timeline">
+              {% for edu in education %}
+              <div class="fk-timeline__item">
+                <div class="fk-timeline__dot"></div>
+                <div class="fk-timeline__card">
+                  <div class="fk-timeline__meta">
+                    <span class="fk-timeline__year">{{ edu.start_year }} – {% if edu.is_current %}Present{% else %}{{ edu.end_year }}{% endif %}</span>
+                    <span class="fk-badge">{{ edu.degree_level }}</span>
                   </div>
-                  {% endfor %}
+                  <h4 class="fk-timeline__title">{{ edu.degree }}</h4>
+                  <p class="fk-timeline__institution"><i class="bi bi-building me-1"></i>{{ edu.institution }}</p>
+                  <p class="fk-timeline__desc">{{ edu.description }}</p>
                 </div>
               </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-left" data-aos-delay="100">
+            <div class="fk-block-label"><i class="bi bi-patch-check-fill me-2"></i>Professional Certifications</div>
+            <div class="fk-cert-grid">
+              {% for cert in certifications %}
+              <div class="fk-cert-card {% if cert.is_current %}fk-cert-card--active{% endif %}">
+                <div class="fk-cert-card__icon"><i class="bi bi-award-fill"></i></div>
+                <div class="fk-cert-card__body">
+                  {% if cert.is_current %}<span class="fk-badge fk-badge--accent mb-2 d-inline-block">In Progress</span>{% endif %}
+                  <h4 class="fk-cert-card__title">{{ cert.title }}</h4>
+                  <p class="fk-cert-card__issuer">{{ cert.issuer }}</p>
+                  <p class="fk-cert-card__desc">{{ cert.description }}</p>
+                </div>
+              </div>
+              {% endfor %}
             </div>
           </div>
         </div>
       </div>
-    </section><!-- /Resume Section -->
+    </section>
 
-    <!-- Interest Section -->
-    <section id="interests" class="interests section">
-
-      <div class="container section-title" data-aos="fade-up">
-        <span class="subtitle">Interests</span>
-        <h2>Interests & Career Roadmap</h2>
-        <p>Exploring the intersection of Finance, Technology, and Innovation.</p>
-      </div>
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <h3 class="mb-4" style="font-size: 1.5rem; color: var(--heading-color);">Areas of Interest</h3>
+    <!-- INTERESTS & CAREER ROADMAP -->
+    <section id="interests" class="fk-section">
+      <div class="container">
+        <div class="fk-section-header" data-aos="fade-up">
+          <span class="fk-section-header__tag">What Drives Me</span>
+          <h2 class="fk-section-header__title">Interests &amp; Career Roadmap</h2>
+          <p class="fk-section-header__sub">Exploring the intersection of Finance, Technology, and Innovation.</p>
+        </div>
         <div class="row gy-4 mb-5">
           {% for interest in interests %}
-          <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="{{ forloop.counter|add:1|stringformat:'d'|add:'00' }}">
-            <div class="interest-item">
-              <div class="icon-wrapper">
-                <i class="{{ interest.icon }}"></i>
-              </div>
-              <h4>{{ interest.title }}</h4>
-              <p>{{ interest.description }}</p>
+          <div class="col-sm-6 col-xl-3" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}50">
+            <div class="fk-interest-card">
+              <div class="fk-interest-card__icon"><i class="{{ interest.icon }}"></i></div>
+              <h4 class="fk-interest-card__title">{{ interest.title }}</h4>
+              <p class="fk-interest-card__desc">{{ interest.description }}</p>
             </div>
           </div>
           {% endfor %}
         </div>
-
-        <h3 class="mb-4" style="font-size: 1.5rem; color: var(--heading-color);">Career Roadmap</h3>
+        <div class="fk-section-header fk-section-header--left mt-4 mb-4" data-aos="fade-up">
+          <span class="fk-section-header__tag">Roadmap</span>
+          <h3 class="fk-section-header__title" style="font-size:2rem;">Career Goals</h3>
+        </div>
         <div class="row gy-4">
           {% for goal in career_goals %}
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:1|stringformat:'d'|add:'00' }}">
-            <div class="interest-item position-relative h-100">
-              <div class="icon-wrapper" style="background: #eef2ff; color: #4154f1;">
-                <span style="font-weight:800; font-size:1.2rem;">{{ goal.get_timeframe_display }}</span>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter0 1 100 %}">
+            <div class="fk-goal-card">
+              <div class="fk-goal-card__header">
+                <span class="fk-goal-card__timeframe">{{ goal.get_timeframe_display }}</span>
+                <h4 class="fk-goal-card__title">{{ goal.title }}</h4>
               </div>
-              <h4>{{ goal.title }}</h4>
-              <ul class="text-start text-secondary" style="list-style: none; padding-left: 0;">
+              <ul class="fk-goal-list">
                 {% for item in goal.get_goals_list %}
-                  <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> {{ item }}</li>
+                <li><i class="bi bi-check2-circle"></i> {{ item }}</li>
                 {% endfor %}
               </ul>
             </div>
@@ -298,246 +228,150 @@
           {% endfor %}
         </div>
       </div>
-    </section><!-- /Interests Section -->
+    </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio section">
-
-      <div class="container section-title" data-aos="fade-up">
-        <span class="subtitle">Portfolio</span>
-        <h2>Featured Projects</h2>
-        <p>A selection of projects demonstrating my journey in Full Stack Development, Data Science, and Solving Real-world Problems.</p>
-      </div>
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-          
-          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="200">
-            <li data-filter="*" class="filter-active">All Work</li>
-            <li data-filter=".filter-ai">AI & Data Science</li>
-            <li data-filter=".filter-web">Web Development</li>
-            <li data-filter=".filter-mobile">Mobile</li>
-          </ul>
-
-          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="300">
-            {% for project in projects %}
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-{{ project.category|lower }}">
-              <div class="portfolio-card">
-                <div class="portfolio-image-container">
-                  {% if project.thumbnail %}
-                    <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="img-fluid" loading="lazy">
-                  {% else %}
-                    <img src="{% static 'img/portfolio/default-project.jpg' %}" alt="{{ project.title }}" class="img-fluid" loading="lazy">
-                  {% endif %}
-                  <div class="portfolio-overlay">
-                    <div class="portfolio-info">
-                      <span class="project-category">{{ project.get_category_display }}</span>
-                      <h4>{{ project.title }}</h4>
-                    </div>
-                    <div class="portfolio-actions">
-                      <a href="{% url 'portfolio-details' project.slug %}" class="portfolio-details" title="More Details">
-                        <i class="bi bi-arrow-right"></i>
-                      </a>
-                      {% if project.live_url %}
-                      <a href="{{ project.live_url }}" target="_blank" class="portfolio-details">
-                        <i class="bi bi-link-45deg"></i>
-                      </a>
-                      {% endif %}
-                    </div>
-                  </div>
-                </div>
-                <div class="portfolio-meta">
-                  <div class="project-tags">
-                    {% for tag in project.tags.all|slice:":3" %}
-                      <span class="tag">{{ tag.name }}</span>
-                    {% endfor %}
-                  </div>
-                  <div class="project-year">{{ project.project_date }}</div>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="fk-section fk-section--alt">
+      <div class="container">
+        <div class="fk-section-header" data-aos="fade-up">
+          <span class="fk-section-header__tag">Work</span>
+          <h2 class="fk-section-header__title">Featured Projects</h2>
+          <p class="fk-section-header__sub">Full-stack development, AI integration, and real-world problem solving.</p>
+        </div>
+        <div class="fk-portfolio-filters" data-aos="fade-up" data-aos-delay="100">
+          <button class="fk-filter-btn active" data-filter="*">All</button>
+          <button class="fk-filter-btn" data-filter=".filter-ai">AI &amp; Data Science</button>
+          <button class="fk-filter-btn" data-filter=".filter-web">Web Dev</button>
+          <button class="fk-filter-btn" data-filter=".filter-mobile">Mobile</button>
+          <button class="fk-filter-btn" data-filter=".filter-other">Other</button>
+        </div>
+        <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+          {% for project in projects %}
+          <div class="col-lg-4 col-md-6 isotope-item filter-{{ project.category|lower }}">
+            {% include "includes/project_card.html" with card_project=project %}
           </div>
+          {% endfor %}
         </div>
       </div>
-    </section><!-- /Portfolio Section -->
+    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
-
-      <div class="container section-title" data-aos="fade-up">
-        <span class="subtitle">Contact</span>
-        <h2>Get In Touch</h2>
-        <p>I'm always open to new opportunities, collaborations, or just a chat about technology and finance.</p>
-      </div>
-
+    <!-- CONTACT -->
+    <section id="contact" class="fk-section">
       <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-4">
-            <div class="info-item">
-              <div class="icon-wrapper">
-                <i class="bi bi-geo-alt"></i>
+        <div class="fk-section-header" data-aos="fade-up">
+          <span class="fk-section-header__tag">Say Hello</span>
+          <h2 class="fk-section-header__title">Get In Touch</h2>
+          <p class="fk-section-header__sub">Open to opportunities, collaborations, or a good conversation about tech and finance.</p>
+        </div>
+        <div class="row gy-5">
+          <div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
+            <div class="fk-contact-info">
+              {% if profile %}
+              <div class="fk-contact-info__item">
+                <div class="fk-contact-info__icon"><i class="bi bi-geo-alt-fill"></i></div>
+                <div><h5>Location</h5><p>{{ profile.location }}</p></div>
               </div>
-              <div>
-                <h3>Location</h3>
-                <p>{{ profile.location }}</p>
+              <div class="fk-contact-info__item">
+                <div class="fk-contact-info__icon"><i class="bi bi-telephone-fill"></i></div>
+                <div><h5>Phone</h5><p><a href="tel:{{ profile.phone }}">{{ profile.phone }}</a></p></div>
               </div>
-            </div>
-
-            <div class="info-item">
-              <div class="icon-wrapper">
-                <i class="bi bi-telephone"></i>
+              <div class="fk-contact-info__item">
+                <div class="fk-contact-info__icon"><i class="bi bi-envelope-fill"></i></div>
+                <div><h5>Email</h5><p><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></p></div>
               </div>
-              <div>
-                <h3>Call Me</h3>
-                <p>{{ profile.phone }}</p>
-              </div>
-            </div>
-
-            <div class="info-item">
-              <div class="icon-wrapper">
-                <i class="bi bi-envelope"></i>
-              </div>
-              <div>
-                <h3>Email Me</h3>
-                <p>{{ profile.email }}</p>
+              {% endif %}
+              <div class="fk-contact-socials mt-4">
+                {% include "includes/social_links.html" %}
               </div>
             </div>
-
           </div>
-
-          <div class="col-lg-8">
+          <div class="col-lg-8" data-aos="fade-left" data-aos-delay="150">
             {% if messages %}
               {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                  {{ message }}
-                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
+              <div class="fk-alert fk-alert--{{ message.tags }}">
+                <i class="bi {% if 'success' in message.tags %}bi-check-circle-fill{% else %}bi-exclamation-triangle-fill{% endif %} me-2"></i>
+                {{ message }}
+                <button type="button" onclick="this.parentElement.remove()" class="fk-alert__close">&times;</button>
+              </div>
               {% endfor %}
             {% endif %}
-
-            <form action="{% url 'home' %}" method="post" class="php-email-form">
+            <form action="{% url 'home' %}#contact" method="post" class="fk-contact-form" id="contactForm">
               {% csrf_token %}
-              <div class="row gy-4">
-
-                <div class="col-md-6">
-                  {{ form.name }}
-                  {{ form.name.errors }}
+              <div class="row gy-3">
+                <div class="col-sm-6">
+                  <div class="fk-form-group">
+                    <label for="{{ form.name.id_for_label }}" class="fk-form-label">Your Name</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}<div class="fk-form-error">{{ form.name.errors.0 }}</div>{% endif %}
+                  </div>
                 </div>
-
-                <div class="col-md-6">
-                  {{ form.email }}
-                  {{ form.email.errors }}
+                <div class="col-sm-6">
+                  <div class="fk-form-group">
+                    <label for="{{ form.email.id_for_label }}" class="fk-form-label">Email Address</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}<div class="fk-form-error">{{ form.email.errors.0 }}</div>{% endif %}
+                  </div>
                 </div>
-
-                <div class="col-md-12">
-                  {{ form.subject }}
-                  {{ form.subject.errors }}
+                <div class="col-12">
+                  <div class="fk-form-group">
+                    <label for="{{ form.subject.id_for_label }}" class="fk-form-label">Subject</label>
+                    {{ form.subject }}
+                    {% if form.subject.errors %}<div class="fk-form-error">{{ form.subject.errors.0 }}</div>{% endif %}
+                  </div>
                 </div>
-
-                <div class="col-md-12">
-                  {{ form.message }}
-                  {{ form.message.errors }}
+                <div class="col-12">
+                  <div class="fk-form-group">
+                    <label for="{{ form.message.id_for_label }}" class="fk-form-label">Message</label>
+                    {{ form.message }}
+                    {% if form.message.errors %}<div class="fk-form-error">{{ form.message.errors.0 }}</div>{% endif %}
+                  </div>
                 </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-                  
-                  <button type="submit">Send Message</button>
+                <div class="col-12">
+                  <button type="submit" class="fk-btn fk-btn--primary">Send Message <i class="bi bi-send-fill ms-2"></i></button>
                 </div>
-
               </div>
             </form>
           </div>
         </div>
       </div>
-    </section><!-- /Contact Section -->
+    </section>
 
-  </main>
+{% endblock %}
 
-  <footer id="footer" class="footer">
-
-    <div class="container footer-top">
-      <div class="row gy-4">
-        <div class="col-lg-5 col-md-12 footer-about">
-          <a href="{% url 'home' %}" class="logo d-flex align-items-center">
-            <span class="sitename">{{ profile.name }}</span>
-          </a>
-          <p>Combining financial acumen with technical expertise to build the future of business intelligence.</p>
-          <div class="social-links d-flex mt-4">
-            {% if profile.github_url %}
-              <a href="{{ profile.github_url }}" target="_blank"><i class="bi bi-github"></i></a>
-            {% endif %}
-            {% if profile.linkedin_url %}
-              <a href="{{ profile.linkedin_url }}" target="_blank"><i class="bi bi-linkedin"></i></a>
-            {% endif %}
-            {% if profile.instagram_url %}
-              <a href="{{ profile.instagram_url }}" target="_blank"><i class="bi bi-instagram"></i></a>
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="col-lg-2 col-6 footer-links">
-          <h4>Useful Links</h4>
-          <ul>
+{% block footer_columns %}
+        <div class="col-lg-2 col-sm-4">
+          <h5 class="fk-footer__heading">Quick Links</h5>
+          <ul class="fk-footer__links">
             <li><a href="#hero">Home</a></li>
             <li><a href="#about">About</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#resume">Education</a></li>
+            <li><a href="#portfolio">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
-
-        <div class="col-lg-2 col-6 footer-links">
-          <h4>Core Competencies</h4>
-          <ul>
-            {% for skill in skills|slice:":4" %}
-              <li><a href="#about">{{ skill.name }}</a></li>
+        <div class="col-lg-2 col-sm-4">
+          <h5 class="fk-footer__heading">Skills</h5>
+          <ul class="fk-footer__links">
+            {% for skill in skills|slice:":5" %}
+            <li><a href="#about">{{ skill.name }}</a></li>
             {% endfor %}
           </ul>
         </div>
-
-        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-          <h4>Contact Info</h4>
-          <p>{{ profile.location }}</p>
-          <p class="mt-4"><strong>Phone:</strong> <span>{{ profile.phone }}</span></p>
-          <p><strong>Email:</strong> <span>{{ profile.email }}</span></p>
+        <div class="col-lg-3 col-sm-4">
+          <h5 class="fk-footer__heading">Contact</h5>
+          {% if profile %}
+          <ul class="fk-footer__contact-list">
+            <li><i class="bi bi-geo-alt-fill"></i> {{ profile.location }}</li>
+            <li><i class="bi bi-telephone-fill"></i> <a href="tel:{{ profile.phone }}">{{ profile.phone }}</a></li>
+            <li><i class="bi bi-envelope-fill"></i> <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></li>
+          </ul>
+          {% endif %}
         </div>
+{% endblock %}
 
-      </div>
-    </div>
-
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">{{ profile.name }}</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">Designed with ❤️ by fredxotic</div>
-    </div>
-
-  </footer>
-
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'vendor/email-form/validate.js' %}"></script>
-  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+{% block extra_js %}
   <script src="{% static 'vendor/typed.js/typed.umd.js' %}"></script>
   <script src="{% static 'vendor/waypoints/noframework.waypoints.js' %}"></script>
-  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
   <script src="{% static 'vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
   <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
-
-  <!-- Main JS File -->
-  <script src="{% static 'js/main.js' %}"></script>
-
-</body>
-
-</html>
+{% endblock %}

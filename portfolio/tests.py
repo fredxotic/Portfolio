@@ -17,6 +17,9 @@ class PortfolioTests(TestCase):
             category="Web",
             short_description="Short desc",
             description="Long desc",
+            detailed_content="Detailed content here",
+            tech_stack="Django, Python",
+            project_date="2025",
             featured=True
         )
 

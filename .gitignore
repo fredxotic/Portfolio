@@ -11,8 +11,11 @@ __pycache__/
 *.log
 db.sqlite3
 db.sqlite3-journal
-/media
-/staticfiles
+/media/
+/staticfiles/
+
+# Source maps (vendor debugging aids — not needed in production)
+*.map
 
 # Virtual Environment
 .venv/
@@ -26,3 +29,10 @@ env/
 *.swp
 *.swo
 *~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Reference screenshots (not part of the site)
+/image/

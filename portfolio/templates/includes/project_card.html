@@ -1,0 +1,27 @@
+{% load static %}<div class="fk-project-card">
+  <div class="fk-project-card__img-wrap">
+    {% if card_project.thumbnail %}
+      <img src="{{ card_project.thumbnail.url }}" alt="{{ card_project.title }}" loading="lazy">
+    {% else %}
+      <div class="fk-project-card__placeholder"><i class="bi bi-code-square"></i></div>
+    {% endif %}
+    <div class="fk-project-card__overlay">
+      <div class="fk-project-card__overlay-actions">
+        <a href="{% url 'portfolio-details' card_project.slug %}" class="fk-project-card__action" aria-label="View details"><i class="bi bi-arrow-up-right"></i></a>
+        {% if card_project.github_url %}<a href="{{ card_project.github_url }}" target="_blank" rel="noopener" class="fk-project-card__action" aria-label="Source code"><i class="bi bi-github"></i></a>{% endif %}
+        {% if card_project.live_url %}<a href="{{ card_project.live_url }}" target="_blank" rel="noopener" class="fk-project-card__action" aria-label="Live demo"><i class="bi bi-box-arrow-up-right"></i></a>{% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="fk-project-card__body">
+    <div class="fk-project-card__meta">
+      <span class="fk-badge fk-badge--muted">{{ card_project.get_category_display }}</span>
+      <span class="fk-project-card__date">{{ card_project.project_date }}</span>
+    </div>
+    <h3 class="fk-project-card__title"><a href="{% url 'portfolio-details' card_project.slug %}">{{ card_project.title }}</a></h3>
+    <p class="fk-project-card__desc">{{ card_project.short_description }}</p>
+    <div class="fk-project-card__tags">
+      {% for tag in card_project.tags.all|slice:":4" %}<span class="fk-tag">{{ tag.name }}</span>{% endfor %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Portfolio{% endblock %}</title>
+  {% block meta %}{% endblock %}
+  <link rel="icon" href="{% static 'img/favicon.png' %}">
+  <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+</head>
+
+<body{% block body_attrs %}{% endblock %}>
+
+  {% block preloader %}{% endblock %}
+
+  <!-- NAVBAR -->
+  <header id="navbar" class="fk-navbar{% block navbar_class %}{% endblock %}">
+    <div class="fk-navbar__inner">
+      <a href="{% url 'home' %}" class="fk-navbar__brand">
+        {% if profile %}<span>{{ profile.name }}</span>{% else %}<span>Portfolio</span>{% endif %}
+      </a>
+      <nav class="fk-navbar__nav" id="navMenu">
+        <ul>{% block nav_items %}{% endblock %}</ul>
+      </nav>
+      <button class="fk-navbar__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>{% block content %}{% endblock %}</main>
+
+  <!-- FOOTER -->
+  <footer class="fk-footer">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-6">
+          <a href="{% url 'home' %}" class="fk-footer__logo">{% if profile %}{{ profile.name }}{% else %}Portfolio{% endif %}</a>
+          <p class="fk-footer__tagline">Combining financial acumen with technical expertise to build the future of business intelligence.</p>
+          <div class="fk-footer__socials">
+            {% include "includes/social_links.html" %}
+          </div>
+        </div>
+        {% block footer_columns %}{% endblock %}
+      </div>
+      <div class="fk-footer__bottom">
+        <p>&copy; {% now "Y" %} <strong>{% if profile %}{{ profile.name }}{% else %}Portfolio{% endif %}</strong>. All rights reserved.</p>
+        <p>Designed &amp; built by <a href="{% if profile and profile.github_url %}{{ profile.github_url }}{% else %}#{% endif %}" target="_blank" rel="noopener">fredxotic</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="scrollTop" class="fk-scroll-top" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+  <!-- Core scripts (shared across all pages) -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
