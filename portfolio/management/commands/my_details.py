@@ -1,11 +1,11 @@
 from django.core.management.base import BaseCommand
 from portfolio.models import (
     Profile, Skill, Education, Certification, Interest,
-    Project, ProjectImage, ProjectTag, CareerGoal
+    Project, ProjectTag, CareerGoal
 )
 
 class Command(BaseCommand):
-    help = 'Populate portfolio with my real data'
+    help = 'Populate portfolio with my real data (BCom student profile)'
 
     def handle(self, *args, **options):
         # Clear existing data
@@ -22,10 +22,10 @@ class Command(BaseCommand):
         self.stdout.write('Creating profile...')
         profile = Profile.objects.create(
             name="Fred Kaloki",
-            title="BCom Student, CPA Candidate, Full Stack Developer",
-            bio="""I am Fred Kaloki, a Bachelor of Commerce student at Egerton University with a strong passion for merging financial expertise with cutting-edge technology. As a CPA candidate and aspiring full-stack developer, I am dedicated to leveraging analytical skills and innovative solutions to drive business growth and efficiency.
+            title="BCom Student | Aspiring Finance Professional",
+            bio="""I am Fred Kaloki, a Bachelor of Commerce student at Egerton University with a focus on Accounting and Finance. I am passionate about using data and technology to enhance financial decision‑making and business efficiency.
 
-My journey spans accounting, finance, and technology, where I've developed proficiency in Python, Django, data analysis, and web development. I'm committed to continuous learning and applying my knowledge to solve real-world problems through data-driven insights and robust applications.""",
+My academic training provides a solid foundation in financial accounting, management accounting, and business law. Complementing this, I have pursued practical training in Python, data analysis, and AI literacy—skills I apply to build tools that solve real‑world financial problems. I believe the future of finance lies at the intersection of deep domain knowledge and technological fluency, and I am committed to developing expertise in both.""",
             location="Nairobi, Kenya",
             phone="+254706367840",
             email="charlesfred285@gmail.com",
@@ -34,15 +34,14 @@ My journey spans accounting, finance, and technology, where I've developed profi
             instagram_url="https://instagram.com/xotic.py"
         )
         
-        # Create Skills
+        # Create Skills (updated to reflect actual first-year knowledge)
         self.stdout.write('Creating skills...')
         skills_data = [
-            ("Financial Accounting", 85, 1),
-            ("Python Programming", 90, 2),
-            ("Django Framework", 85, 3),
-            ("React & Next.js", 80, 4),
-            ("FastAPI & REST APIs", 80, 6),
-            ("Data Analysis & AI Integration", 75, 7),
+            ("Financial Accounting", 75, 1),
+            ("Financial Analysis", 65, 2),
+            ("Microsoft Office Suite", 85, 3),
+            ("Python for Data Analysis", 80, 4),
+            ("Data Visualization", 70, 5),
         ]
         
         for name, percentage, order in skills_data:
@@ -71,324 +70,201 @@ My journey spans accounting, finance, and technology, where I've developed profi
             order=2
         )
         
-        # Create Certifications
+        # Create Certifications (actual completed trainings)
         self.stdout.write('Creating certifications...')
         Certification.objects.create(
-            title="CPA Part I",
-            issuer="KASNEB (Kenya Accountants and Secretaries National Examinations Board)",
-            description="Currently undertaking CPA Section 1, covering Financial Accounting, Economics, and Business Law. Building strong foundation in accounting principles and business regulations.",
-            is_current=True,
+            title="AI for Software Engineering",
+            issuer="Power Learn Project",
+            description="A 16‑week intensive program covering Python programming, web technologies, database management, and software engineering essentials with a specialization in AI for Software Engineering. This training equipped me with practical skills to develop data‑driven applications and leverage AI in business contexts.",
+            is_current=False,
             order=1
         )
         
         Certification.objects.create(
-            title="AI for Software Engineering",
-            issuer="Power Learn Project (PLP Academy)",
-            description="Comprehensive training in Python programming, software engineering principles, and AI fundamentals. Gained hands-on experience in building applications and solving problems with code.",
+            title="Data Science Essentials",
+            issuer="Ivy Code Academy",
+            description="A 3‑day hands‑on workshop covering core data science concepts: data cleaning, exploratory analysis, basic machine learning, and visualization. The skills gained are directly applicable to financial data analysis and business intelligence.",
             is_current=False,
             order=2
         )
         
         Certification.objects.create(
-            title="Web Development with Django",
-            issuer="EMobilis Technology Institute",
-            description="Intensive training in full-stack web development using Django framework. Learned MVT architecture, database design, RESTful APIs, and deployment strategies for production-ready applications.",
+            title="AI Literacy",
+            issuer="Otermans Institute",
+            description="A foundational course on artificial intelligence, its applications, and ethical considerations. This certification demonstrates my understanding of how AI can be applied in finance and business to improve decision‑making and efficiency.",
             is_current=False,
             order=3
         )
         
-        # Create Interests
+        # Create Interests (more personal and specific)
         self.stdout.write('Creating interests...')
         interests_data = [
-            ("AI & Machine Learning", "Building intelligent systems that solve real-world problems using LLMs and data science.", "bi-cpu", 1),
-            ("Full Stack Development", "Creating end-to-end web applications with modern frameworks like Django, React, and Next.js.", "bi-code-slash", 2),
-            ("Financial Technology", "Exploring how technology transforms financial services and business operations.", "bi-graph-up-arrow", 3),
-            ("Social Impact Tech", "Developing solutions that address environmental and social challenges through technology.", "bi-globe", 4),
+            ("Building Financial Tools with Python", 
+             "I enjoy creating small applications that automate financial calculations and help make sense of data.", 
+             "bi-code-square", 1),
+            ("Data‑Driven Investment Analysis", 
+             "Exploring how data science can uncover investment opportunities and improve portfolio decisions.", 
+             "bi-graph-up", 2),
+            ("Tech Solutions for Small Business Accounting", 
+             "Passionate about developing simple, affordable tools that help entrepreneurs manage their finances.", 
+             "bi-calculator", 3),
+            ("AI Applications in Finance", 
+             "Fascinated by how artificial intelligence is transforming risk assessment, fraud detection, and financial advisory.", 
+             "bi-cpu", 4),
         ]
         
         for title, desc, icon, order in interests_data:
             Interest.objects.create(title=title, description=desc, icon=icon, order=order)
         
-        # Create Career Goals
+        # Create Career Goals (more tailored to your unique path)
         self.stdout.write('Creating career goals...')
         CareerGoal.objects.create(
             timeframe='short',
-            title='Foundation Building (1-2 Years)',
-            goals="""Complete CPA qualification
-Master full-stack development (Django, React, Next.js)
-Build and deploy 15+ production projects
-Contribute to open-source AI/ML projects
-Secure software development internship""",
+            title='Foundation Building (1‑2 Years)',
+            goals="""Complete second year of BCom with strong grades in Accounting and Finance modules.
+Build 3 practical finance‑focused projects (financial statement analyzer, portfolio tool, accounting app) to demonstrate my ability to combine finance and tech.
+Secure an internship where I can apply both my accounting knowledge and data analysis skills (in audit, financial analysis, or FinTech).
+Deepen proficiency in Python for financial data analysis and explore Power BI or Tableau.""",
             order=1
         )
         
         CareerGoal.objects.create(
             timeframe='medium',
-            title='Professional Growth (3-4 Years)',
-            goals="""Position as Full Stack Developer or AI Engineer
-Lead development of enterprise-scale applications
-Specialize in AI integration and FinTech solutions
-Build professional network in tech ecosystem
-Pursue advanced certifications (AWS/Azure, ML)""",
+            title='Professional Growth (3‑4 Years)',
+            goals="""Graduate with BCom and pursue professional certification (e.g., CPA, CFA) while working in a finance role.
+Gain experience in financial analysis, reporting, or audit, using data tools to add value.
+Specialize in a niche that blends finance and technology – e.g., financial data analyst, FinTech product analyst.
+Build a network of mentors and peers in the finance and tech communities.""",
             order=2
         )
         
         CareerGoal.objects.create(
             timeframe='long',
             title='Leadership & Innovation (5+ Years)',
-            goals="""Technical leadership in innovative tech companies
-Develop AI-powered financial solutions at scale
-Become recognized expert in AI + Finance intersection
-Mentor emerging developers and contribute to tech education
-Launch tech venture addressing real-world challenges""",
+            goals="""Hold a position where I influence financial strategy using data‑driven insights.
+Potentially lead a team or project that develops innovative financial solutions (e.g., a FinTech product for underserved markets).
+Mentor students who want to bridge finance and technology.
+Continuously learn and adapt as the financial landscape evolves with AI and automation.""",
             order=3
         )
         
-        # Create Real Projects
+        # Create Finance / Accounting Projects (Placeholders - unchanged)
         self.stdout.write('Creating projects...')
         
-        # Project 1: PathFinder
+        # Project 1: FinSight - Financial Statement Analyzer
         project1 = Project.objects.create(
-            title="PathFinder - AI Decision Intelligence Platform",
-            slug="pathfinder-ai-decision-platform",
-            category="AI",
-            short_description="AI-powered decision-making platform that transforms analysis paralysis into confident action using priority-weighted scoring and LLM reasoning.",
-            description="""PathFinder is a sophisticated AI platform that revolutionizes how professionals make critical life and career decisions. By combining large language models with structured decision frameworks, it provides quantitative analysis that goes far beyond generic chatbot responses.
-
-Every day, people face decisions that can shape their entire careers - job offers, career transitions, relocation choices. PathFinder transforms this daunting process into a structured, data-driven experience.""",
+            title="FinSight – Financial Statement Analyzer",
+            slug="finsight-financial-statement-analyzer",
+            category="Finance",
+            short_description="A web application that computes key financial ratios and generates insightful reports from income statements and balance sheets.",
+            description="""FinSight helps business owners, students, and analysts quickly interpret financial health. By simply entering or uploading financial data, users receive a comprehensive analysis with liquidity, profitability, and leverage ratios, trend graphs, and a DuPont decomposition.""",
             detailed_content="""The Problem:
-Traditional decision-making tools are either too simplistic (pros/cons lists) or too complex (decision matrices requiring extensive setup). People need intelligent guidance that respects their unique priorities while providing objective analysis.
+Many small business owners and students struggle to interpret raw financial statements. Manual ratio calculation is time‑consuming and error‑prone, and insights often remain buried in spreadsheets.
 
-Technical Architecture:
-• Next.js 14 frontend with server-side rendering for optimal performance
-• FastAPI backend providing RESTful endpoints for decision processing
-• Groq LLM integration for rapid AI inference and reasoning
-• Supabase for user authentication and decision history storage
-• Real-time streaming responses for enhanced user experience
+Technical Solution:
+A Django‑based web app that automates ratio analysis and presents results in an intuitive dashboard.
 
-Core Innovation - Priority Weighting System:
-Unlike generic AI assistants, PathFinder implements a mathematical scoring engine:
-1. Users define their priorities (Career Growth, Work-Life Balance, Financial Security, etc.)
-2. AI evaluates each option against these specific criteria
-3. Weighted scores are calculated based on user-defined importance
-4. Comprehensive reports include risk assessment and long-term projections
+Core Features:
+• Input forms for income statement and balance sheet data
+• CSV/Excel upload for batch processing
+• Automatic calculation of 15+ financial ratios (current ratio, ROE, debt‑to‑equity, etc.)
+• Historical comparison with visual trend lines
+• DuPont analysis breakdown
+• Export professional PDF reports
+• User accounts to save and track multiple companies
 
-Key Features:
-• Intelligent option comparison with quantitative scoring (0-100 scale)
-• Priority-based weighting that reflects individual values
-• Risk analysis identifying potential challenges for each choice
-• Professional PDF report generation for stakeholder communication
-• Decision history tracking with revision capabilities
-• Mobile-responsive design for on-the-go decision making
-
-Technical Highlights:
-• Implemented streaming LLM responses for real-time feedback
-• Custom prompt engineering for decision-specific reasoning
-• Optimized API architecture handling concurrent decision analyses
-• Secure authentication with row-level security in Supabase
-• PDF generation with charts and formatted analysis
+Tech Stack:
+Django, Python (pandas, numpy), Chart.js, Bootstrap 5, PostgreSQL, WeasyPrint for PDF generation.
 
 Impact:
-PathFinder has helped users make confident decisions about job offers, career pivots, and life-changing opportunities by providing structured analysis that combines AI intelligence with personal values.
-
-Live Demo: https://pathfinder-eight-sable.vercel.app""",
-            tech_stack="Next.js 14, FastAPI, Python, Groq LLM, Supabase, PostgreSQL, TailwindCSS",
-            project_date="October 2024",
-            live_url="https://pathfinder-eight-sable.vercel.app",
-            github_url="https://github.com/fredkaloki/pathfinder",
+Enables faster, more accurate financial analysis for entrepreneurs and students, bridging the gap between raw data and actionable insights.""",
+            tech_stack="Django, Python, pandas, numpy, Chart.js, Bootstrap, PostgreSQL",
+            project_date="Planned – March 2026",
+            live_url="#",
+            github_url="https://github.com/fredkaloki/finsight",
             featured=True,
             order=1
         )
-        ProjectTag.objects.create(project=project1, name="Next.js")
-        ProjectTag.objects.create(project=project1, name="FastAPI")
-        ProjectTag.objects.create(project=project1, name="AI/LLM")
+        ProjectTag.objects.create(project=project1, name="Django")
+        ProjectTag.objects.create(project=project1, name="Financial Analysis")
         ProjectTag.objects.create(project=project1, name="Python")
-        ProjectTag.objects.create(project=project1, name="Supabase")
-        ProjectTag.objects.create(project=project1, name="TailwindCSS")
+        ProjectTag.objects.create(project=project1, name="Data Visualization")
         
-        # Project 2: ReForester
+        # Project 2: OptiPort - Portfolio Optimization Tool
         project2 = Project.objects.create(
-            title="ReForester - AI-Powered Reforestation Intelligence",
-            slug="reforester-ai-reforestation",
-            category="AI",
-            short_description="Comprehensive platform empowering environmental teams to plan and manage reforestation projects worldwide using AI and real-world environmental data.",
-            description="""ReForester is an end-to-end solution for ecosystem restoration that combines cutting-edge AI with environmental science. It transforms complex reforestation planning into an intuitive, data-driven process accessible to environmental teams globally.
+            title="OptiPort – Portfolio Optimization & Backtesting",
+            slug="optiport-portfolio-optimization",
+            category="Investment",
+            short_description="Interactive tool that applies Modern Portfolio Theory to help investors build efficient portfolios and backtest strategies.",
+            description="""OptiPort allows users to select stocks, define constraints, and instantly see the optimal asset allocation that maximizes return for a given risk level. The efficient frontier is plotted, and historical backtesting shows how the portfolio would have performed.""",
+            detailed_content="""The Problem:
+Individual investors often lack access to quantitative tools for portfolio construction. Spreadsheet‑based optimization is complex and prone to error.
 
-By integrating real-time soil data, climate information, and AI-powered ecological reasoning, ReForester enables informed decisions about where and how to plant for maximum environmental impact.""",
-            detailed_content="""Environmental Challenge:
-Reforestation projects often fail due to poor species selection, inadequate site analysis, or lack of long-term planning. Teams need intelligent tools that understand local ecosystems and predict project outcomes.
-
-Technical Architecture:
-• React frontend with modular component architecture
-• Node.js/Express backend handling complex environmental calculations
-• MongoDB for flexible project data and geospatial storage
-• Leaflet.js for interactive global mapping capabilities
-• Claude AI integration for context-aware ecological reasoning
-• External APIs: SoilGrids, OpenWeatherMap for real-world data
+Technical Solution:
+A web application built with Python and Flask (or Django) that fetches real‑time market data and performs portfolio optimization using scipy.
 
 Core Features:
+• Search and select stocks (via Yahoo Finance API)
+• Choose date range and optimization objective (max Sharpe, min volatility)
+• Generate efficient frontier with interactive Plotly charts
+• Display optimal weights and portfolio metrics (expected return, volatility, Sharpe ratio)
+• Backtest the optimized portfolio against a benchmark (e.g., S&P 500)
+• Download report with weights and performance statistics
 
-1. Interactive Global Analysis:
-• Click anywhere on the map to instantly retrieve:
-  - Soil composition and pH levels (via SoilGrids API)
-  - Climate data including rainfall and temperature patterns
-  - Elevation and terrain characteristics
-• Real-time data visualization with color-coded indicators
+Tech Stack:
+Python, Flask/Django, pandas, numpy, scipy, yfinance, Plotly, Bootstrap.
 
-2. AI-Powered Recommendations:
-• Claude AI analyzes site-specific conditions
-• Generates species recommendations based on:
-  - Local ecosystem requirements
-  - Soil and climate compatibility
-  - Native vs. adaptive species considerations
-• Provides planting strategies and maintenance guidelines
-
-3. Project Planning Tools:
-• Create detailed reforestation project proposals
-• Define project areas, species mix, and planting density
-• Set timelines and track implementation milestones
-• Collaborative features for team coordination
-
-4. Impact Projections:
-• 20-year growth forecasts for carbon sequestration
-• Biodiversity impact predictions
-• Cost-benefit analysis for different approaches
-• Success probability based on historical data
-
-5. Project Management:
-• Dashboard for tracking multiple projects
-• Progress monitoring with photo documentation
-• Team collaboration and task assignment
-• Reporting tools for stakeholders
-
-Technical Implementation:
-• Implemented GeoJSON for efficient map data handling
-• Custom algorithms for carbon calculation based on species and growth rates
-• Real-time API integration with error handling and caching
-• Responsive design optimized for field use on mobile devices
-• RESTful API design for extensibility
-
-Environmental Impact:
-ReForester democratizes access to professional-grade reforestation planning tools, enabling organizations of any size to execute scientifically-sound restoration projects.
-
-Live Demo: https://reforester.vercel.app""",
-            tech_stack="React, Node.js, Express, MongoDB, Leaflet.js, Claude AI, SoilGrids API, OpenWeatherMap",
-            project_date="August - September 2024",
-            live_url="https://reforester.vercel.app",
-            github_url="https://github.com/fredkaloki/reforester",
+Impact:
+Democratizes access to quantitative investment tools, enabling informed decision‑making for student investors and DIY portfolio managers.""",
+            tech_stack="Python, Flask, pandas, numpy, scipy, yfinance, Plotly, Bootstrap",
+            project_date="Planned – April 2026",
+            live_url="#",
+            github_url="https://github.com/fredkaloki/optiport",
             featured=True,
             order=2
         )
-        ProjectTag.objects.create(project=project2, name="React")
-        ProjectTag.objects.create(project=project2, name="Node.js")
-        ProjectTag.objects.create(project=project2, name="MongoDB")
-        ProjectTag.objects.create(project=project2, name="AI/LLM")
-        ProjectTag.objects.create(project=project2, name="GeoSpatial")
-        ProjectTag.objects.create(project=project2, name="Environmental Tech")
+        ProjectTag.objects.create(project=project2, name="Python")
+        ProjectTag.objects.create(project=project2, name="Finance")
+        ProjectTag.objects.create(project=project2, name="Investment")
+        ProjectTag.objects.create(project=project2, name="Data Analysis")
         
-        # Project 3: FoodLoop
+        # Project 3: LedgerFlow - Double‑Entry Accounting System
         project3 = Project.objects.create(
-            title="FoodLoop - Food Waste & Hunger Solution Platform",
-            slug="foodloop-food-sharing-platform",
-            category="Web",
-            short_description="Community-driven web platform that bridges food donors and recipients, combating both food waste and hunger through smart donation management.",
-            description="""FoodLoop addresses the dual crisis of food waste and hunger by creating a seamless ecosystem where surplus food can be easily shared with those in need. This full-stack Django application demonstrates how technology can drive social impact at scale.
+            title="LedgerFlow – Double‑Entry Accounting for Small Business",
+            slug="ledgerflow-accounting-system",
+            category="Accounting",
+            short_description="A full‑featured web application that implements double‑entry bookkeeping, enabling small businesses to manage their finances accurately.",
+            description="""LedgerFlow provides an intuitive interface for recording journal entries, maintaining ledgers, and generating financial statements. It follows GAAP principles and includes an audit trail.""",
+            detailed_content="""The Problem:
+Many small businesses rely on spreadsheets that are prone to errors and lack internal controls. Affordable, user‑friendly accounting software is often out of reach.
 
-The platform features intelligent donation management, real-time tracking, geolocation services, and a trust-building rating system that ensures quality and reliability.""",
-            detailed_content="""Social Problem:
-Over 1.3 billion tons of food is wasted annually while millions face hunger. The disconnect between those with surplus food and those in need represents both a logistical and social coordination challenge.
-
-Technical Solution - Full Stack Django Application:
-
-Backend Architecture:
-• Django MVT (Model-View-Template) framework
-• PostgreSQL database with optimized relationships
-• Custom user model extending Django AbstractUser
-• RESTful API design for mobile-ready architecture
-• Celery for asynchronous task processing (notifications)
-• Redis for caching and session management
+Technical Solution:
+A Django‑based accounting system that enforces double‑entry rules and produces real‑time financial reports.
 
 Core Features:
+• Chart of accounts with account types (asset, liability, equity, revenue, expense)
+• Journal entry form with automatic debit/credit balancing
+• General ledger view with running balances
+• Trial balance, income statement, and balance sheet generation
+• User roles: admin (full access) vs. accountant (entry only)
+• Audit log of all changes
+• Export statements to PDF/Excel
 
-1. Smart Donation Management:
-• Create donations with details (quantity, expiry, dietary info)
-• Upload photos with automatic image optimization
-• Set pickup locations with address autocomplete
-• Define availability windows and pickup instructions
-• Real-time status updates (Available, Claimed, Completed)
+Tech Stack:
+Django, PostgreSQL, Bootstrap, JavaScript (vanilla), ReportLab for PDF generation.
 
-2. Intelligent Discovery:
-• Search and filter by location, food type, dietary restrictions
-• Interactive map showing nearby donations (Leaflet.js)
-• Distance calculation and route planning
-• Email/SMS notifications for new donations in user's area
-• Favorites and watchlist functionality
-
-3. Trust & Safety System:
-• Mutual rating system (donors rate recipients, vice versa)
-• Profile verification with photo ID
-• Report and flag inappropriate behavior
-• Admin moderation dashboard
-• History tracking for accountability
-
-4. User Dashboards:
-• Donor Dashboard:
-  - Track active/completed donations
-  - Analytics on food saved and impact
-  - Recipient ratings and feedback
-• Recipient Dashboard:
-  - Claimed donations tracking
-  - Pickup reminders and navigation
-  - Donation history and statistics
-
-5. Impact Analytics:
-• Calculate total food waste prevented (in kg)
-• Meals provided to community members
-• CO2 emissions saved through waste reduction
-• Community leaderboards for motivation
-
-Technical Implementation:
-
-Security & Authentication:
-• Django authentication with custom permissions
-• Role-based access control (Donor/Recipient/Admin)
-• CSRF protection and secure password hashing
-• Email verification for account activation
-
-Database Design:
-• Optimized models for donations, users, ratings, and messages
-• Efficient queries using select_related and prefetch_related
-• Database indexing for search performance
-• Soft deletes for data integrity
-
-Frontend:
-• Bootstrap 5 for responsive design
-• Vanilla JavaScript for interactivity
-• AJAX for seamless user experience
-• Progressive Web App (PWA) capabilities
-
-Deployment:
-• Hosted on PythonAnywhere with production settings
-• Static files served via WhiteNoise
-• Environment variables for sensitive data
-• Automated backup system for database
-
-Real-World Impact:
-FoodLoop has facilitated thousands of food donations, preventing waste while addressing hunger in local communities. The platform proves that thoughtful technology can drive meaningful social change.
-
-Live Platform: https://foodloop.pythonanywhere.com""",
-            tech_stack="Django, Python, PostgreSQL, Bootstrap 5, JavaScript, Leaflet.js, Celery, Redis",
-            project_date="August 2024 - Ongoing",
-            live_url="https://foodloop.pythonanywhere.com",
-            github_url="https://github.com/fredkaloki/foodloop",
+Impact:
+Provides an affordable, transparent accounting solution for micro‑enterprises and serves as a practical learning tool for accounting students to see double‑entry in action.""",
+            tech_stack="Django, PostgreSQL, Bootstrap, JavaScript, ReportLab",
+            project_date="Planned – May 2026",
+            live_url="#",
+            github_url="https://github.com/fredkaloki/ledgerflow",
             featured=True,
             order=3
         )
         ProjectTag.objects.create(project=project3, name="Django")
+        ProjectTag.objects.create(project=project3, name="Accounting")
         ProjectTag.objects.create(project=project3, name="Python")
-        ProjectTag.objects.create(project=project3, name="PostgreSQL")
-        ProjectTag.objects.create(project=project3, name="Bootstrap")
-        ProjectTag.objects.create(project=project3, name="GeoLocation")
-        ProjectTag.objects.create(project=project3, name="Social Impact")
+        ProjectTag.objects.create(project=project3, name="Business")
         
-        self.stdout.write(self.style.SUCCESS('Successfully populated portfolio with your real projects!'))
+        self.stdout.write(self.style.SUCCESS('Successfully populated portfolio with BCom‑focused data'))
